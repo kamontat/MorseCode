@@ -94,7 +94,7 @@ public class DecodePage extends JFrame {
 		morePanel.setVisible(!toggle);
 		selectedPanel.setVisible(toggle);
 		
-		textField.setEnabled(!toggle);
+		textField.setEnabled(toggle);
 		
 		pack();
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
