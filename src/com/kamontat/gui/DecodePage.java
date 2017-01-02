@@ -5,7 +5,11 @@ import com.kamontat.code.constant.MORSE_TYPE;
 import com.kamontat.code.controller.TopMenu;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.util.stream.Stream;
 
@@ -26,9 +30,10 @@ public class DecodePage extends JFrame {
 	private JButton sBtn;
 	private JButton lBtn;
 	private JPanel morePanel;
-	private JButton sbBtn;
+	private JButton ncBtn;
 	private JButton nwBtn;
 	private JPanel selectedPanel;
+	private JButton deleteBtn;
 	
 	public DecodePage() {
 		super("Decode Page");
@@ -36,6 +41,8 @@ public class DecodePage extends JFrame {
 		addComboboxItem();
 		addMenu();
 		addMoreEvent();
+		addTextFieldDoc();
+		addBtnAction();
 	}
 	
 	private void addMenu() {
@@ -57,22 +64,77 @@ public class DecodePage extends JFrame {
 		MORSE_CHAR.getBy(MORSE_TYPE.LONG_CHAR).forEach(morse_char -> L_ComboBox.addItem(morse_char));
 		MORSE_CHAR.getBy(MORSE_TYPE.SHORT_CHAR).forEach(morse_char -> S_ComboBox.addItem(morse_char));
 		
-		SC_ComboBox.setSelectedIndex(1);
+		SW_ComboBox.setSelectedIndex(1);
 		
 		SW_ComboBox.addItemListener(e -> {
 			MORSE_CHAR chr = (MORSE_CHAR) SC_ComboBox.getSelectedItem();
-			if (chr.same(SW_ComboBox.getSelectedItem()))
+			if (chr.sameC(SW_ComboBox.getSelectedItem()))
 				SC_ComboBox.setSelectedIndex(SC_ComboBox.getSelectedIndex() + 1 == SC_ComboBox.getItemCount() ? 0: SC_ComboBox.getSelectedIndex() + 1);
+			
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				textField.setText(convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				inputAction();
+			}
 		});
 		SC_ComboBox.addItemListener(e -> {
 			MORSE_CHAR chr = (MORSE_CHAR) SW_ComboBox.getSelectedItem();
-			if (chr.same(SC_ComboBox.getSelectedItem()))
+			if (chr.sameC(SC_ComboBox.getSelectedItem()))
 				SW_ComboBox.setSelectedIndex(SW_ComboBox.getSelectedIndex() + 1 == SW_ComboBox.getItemCount() ? 0: SW_ComboBox.getSelectedIndex() + 1);
+			
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				textField.setText(convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				inputAction();
+			}
+		});
+		L_ComboBox.addItemListener(e -> {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				textField.setText(convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				inputAction();
+			}
+		});
+		S_ComboBox.addItemListener(e -> {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				textField.setText(convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				inputAction();
+			}
 		});
 	}
 	
 	private void addMoreEvent() {
 		moreBtn.addActionListener(e -> toggle());
+	}
+	
+	private void addTextFieldDoc() {
+		textField.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				inputAction();
+			}
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				inputAction();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				inputAction();
+			}
+		});
+	}
+	
+	private void addBtnAction() {
+		sBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SHORT_CHAR).chr));
+		lBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.LONG_CHAR).chr));
+		ncBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SEPARATE_CHAR).chr));
+		nwBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SEPARATE_WORD).chr));
+		
+		deleteBtn.addActionListener(e -> {
+			try {
+				textField.setText(textField.getText(0, textField.getText().length() - 1));
+			} catch (BadLocationException ignored) {
+			}
+		});
 	}
 	
 	private JComboBox getBox(MORSE_TYPE t) {
@@ -96,13 +158,61 @@ public class DecodePage extends JFrame {
 		
 		textField.setEnabled(toggle);
 		
+		moreBtn.setText(toggle ? "more..": "..less");
+		
 		pack();
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 	}
 	
+	private void inputAction() {
+		SW_ComboBox.setEnabled(textField.getText().isEmpty());
+		SC_ComboBox.setEnabled(textField.getText().isEmpty());
+		
+		if (checkValid(textField.getText())) {
+			textField.setBackground(new Color(255, 255, 255));
+			okBtn.setEnabled(true);
+		} else {
+			textField.setBackground(new Color(255, 0, 0));
+			okBtn.setEnabled(false);
+		}
+	}
+	
+	private boolean checkValid(String text) {
+		MORSE_CHAR sw_c = getChar(MORSE_TYPE.SEPARATE_WORD);
+		MORSE_CHAR sc_c = getChar(MORSE_TYPE.SEPARATE_CHAR);
+		MORSE_CHAR l_c = getChar(MORSE_TYPE.LONG_CHAR);
+		MORSE_CHAR s_c = getChar(MORSE_TYPE.SHORT_CHAR);
+		
+		// check every char in input String
+		for (int i = 0; i < text.length(); i++) {
+			char aChar = text.charAt(i);
+			
+			MORSE_CHAR aMC = MORSE_CHAR.getBy(aChar);
+			if (aMC != null) {
+				if (!aMC.sameC(sw_c) && !aMC.sameC(sc_c) && !aMC.sameC(l_c) && !aMC.sameC(s_c)) return false;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public MORSE_CHAR getChar(MORSE_TYPE t) {
 		Stream<MORSE_CHAR> stream = MORSE_CHAR.getBy(t);
-		return stream.filter(morse_char -> morse_char.same(getBox(t).getSelectedItem())).findFirst().get();
+		return stream.filter(morse_char -> morse_char.sameC(getBox(t).getSelectedItem())).findFirst().get();
+	}
+	
+	public String convert(String txt, MORSE_CHAR xx) {
+		String temp = "";
+		for (char c : txt.toCharArray()) {
+			MORSE_CHAR mc = MORSE_CHAR.getBy(c);
+			if (mc != null) {
+				
+				if (xx.sameT(mc)) temp += getChar(xx.type).chr;
+				else temp += String.valueOf(c);
+			} else return txt;
+		}
+		return temp;
 	}
 	
 	public void run(Point point, Dimension size) {

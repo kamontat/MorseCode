@@ -14,10 +14,10 @@ import java.util.*;
  * @since 1/2/2017 AD - 5:33 PM
  */
 public class Morse {
-	public static MORSE_CHAR SEPARATE_WORD = MORSE_CHAR.C_A;
+	public static MORSE_CHAR SEPARATE_WORD = MORSE_CHAR.C_DEFAULT;
 	public static MORSE_CHAR SEPARATE_ALPHABET = MORSE_CHAR.C_B;
-	public static MORSE_CHAR SHORT_CHAR = MORSE_CHAR.S_A;
-	public static MORSE_CHAR LONG_CHAR = MORSE_CHAR.L_A;
+	public static MORSE_CHAR SHORT_CHAR = MORSE_CHAR.S_DEFAULT;
+	public static MORSE_CHAR LONG_CHAR = MORSE_CHAR.L_DEFAULT;
 	public static TreeMap<String, LinkedHashMap<String, String>> morse_char = new TreeMap<>();
 	
 	private static Morse ourInstance;

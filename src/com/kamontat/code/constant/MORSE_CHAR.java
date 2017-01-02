@@ -9,20 +9,20 @@ import java.util.stream.Stream;
  * @since 1/2/2017 AD - 5:41 PM
  */
 public enum MORSE_CHAR {
-	L_A(MORSE_TYPE.LONG_CHAR, "-"), L_B(MORSE_TYPE.LONG_CHAR, "_"), L_C(MORSE_TYPE.LONG_CHAR, "—"),
+	L_DEFAULT(MORSE_TYPE.LONG_CHAR, '-'), L_B(MORSE_TYPE.LONG_CHAR, '_'), L_C(MORSE_TYPE.LONG_CHAR, '—'),
 	
-	S_A(MORSE_TYPE.SHORT_CHAR, "."), S_B(MORSE_TYPE.SHORT_CHAR, "•"),
+	S_DEFAULT(MORSE_TYPE.SHORT_CHAR, '.'), S_B(MORSE_TYPE.SHORT_CHAR, '•'),
 	
-	C_A(MORSE_TYPE.SEPARATE_CHAR, " "), C_B(MORSE_TYPE.SEPARATE_CHAR, "|"), C_C(MORSE_TYPE.SEPARATE_CHAR, "/"), C_D(MORSE_TYPE.SEPARATE_CHAR, "\\"),
+	C_DEFAULT(MORSE_TYPE.SEPARATE_CHAR, ' '), C_B(MORSE_TYPE.SEPARATE_CHAR, '|'), C_C(MORSE_TYPE.SEPARATE_CHAR, '/'), C_D(MORSE_TYPE.SEPARATE_CHAR, '\\'),
 	
-	W_A(MORSE_TYPE.SEPARATE_WORD, " "), W_B(MORSE_TYPE.SEPARATE_WORD, "|"), W_C(MORSE_TYPE.SEPARATE_WORD, "/"), W_D(MORSE_TYPE.SEPARATE_WORD, "\\");
+	W_DEFAULT(MORSE_TYPE.SEPARATE_WORD, '|'), W_B(MORSE_TYPE.SEPARATE_WORD, ' '), W_C(MORSE_TYPE.SEPARATE_WORD, '/'), W_D(MORSE_TYPE.SEPARATE_WORD, '\\');
 	
 	
 	public MORSE_TYPE type;
-	public String txt;
+	public Character chr;
 	
-	private MORSE_CHAR(MORSE_TYPE t, String a) {
-		txt = a;
+	private MORSE_CHAR(MORSE_TYPE t, Character a) {
+		chr = a;
 		type = t;
 	}
 	
@@ -30,16 +30,32 @@ public enum MORSE_CHAR {
 		return Arrays.stream(MORSE_CHAR.values()).filter(morse_char -> morse_char.type == t);
 	}
 	
-	public boolean same(Object ob) {
+	public static MORSE_CHAR getBy(Character txt) {
+		for (MORSE_CHAR c : MORSE_CHAR.values()) {
+			if (c.chr.compareTo(txt) == 0) return c;
+		}
+		return null;
+	}
+	
+	public boolean sameC(Object ob) {
 		if (ob instanceof MORSE_CHAR) {
 			MORSE_CHAR obj = (MORSE_CHAR) ob;
-			return obj.txt.equals(txt);
+			return obj.chr.compareTo(chr) == 0;
 		}
 		return false;
 	}
 	
+	public boolean sameT(Object ob) {
+		if (ob instanceof MORSE_CHAR) {
+			MORSE_CHAR obj = (MORSE_CHAR) ob;
+			return obj.type == type;
+		}
+		return false;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return txt.equals(" ") ? "1 Spacebar": txt;
+		return chr.equals(' ') ? "1 Spacebar": chr.toString();
 	}
 }
