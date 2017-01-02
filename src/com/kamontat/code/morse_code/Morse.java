@@ -34,7 +34,7 @@ public class Morse {
 	private void read() {
 		ObjectMapper map = new ObjectMapper();
 		try {
-			InputStream input = Location.class.getResourceAsStream("/resource/morse_char.json");
+			InputStream input = Location.class.getResourceAsStream("/com/resource/morse_char.json");
 			morse_char = map.readValue(input, morse_char.getClass());
 		} catch (IOException e) {
 			e.printStackTrace();

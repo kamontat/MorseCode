@@ -6,7 +6,8 @@ package com.kamontat.code.constant;
  * @since 1/2/2017 AD - 5:48 PM
  */
 public enum MORSE_TYPE {
-	SEPARATE,
+	SEPARATE_WORD,
+	SEPARATE_CHAR,
 	SHORT_CHAR,
 	LONG_CHAR;
 }

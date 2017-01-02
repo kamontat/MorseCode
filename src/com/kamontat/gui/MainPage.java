@@ -16,11 +16,20 @@ public class MainPage extends JFrame {
 	public MainPage() {
 		super("MainPage Page");
 		setContentPane(ContentPane);
-		
+		decodeBtn.addActionListener(e -> {
+			DecodePage page = new DecodePage();
+			page.run(getLocation(), getSize());
+			dispose();
+		});
+		encodeBtn.addActionListener(e -> {
+			EncodePage page = new EncodePage();
+			page.run(getLocation(), getSize());
+			dispose();gi
+		});
 	}
 	
 	public void run(Point point) {
-		setMinimumSize(new Dimension(0, 0));
+		setMinimumSize(new Dimension(259, 110));
 		pack();
 		setLocation(point);
 		setVisible(true);
