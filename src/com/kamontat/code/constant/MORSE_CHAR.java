@@ -1,6 +1,7 @@
 package com.kamontat.code.constant;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -24,6 +25,10 @@ public enum MORSE_CHAR {
 	private MORSE_CHAR(MORSE_TYPE t, Character a) {
 		chr = a;
 		type = t;
+	}
+	
+	public static Stream getBy(Predicate<MORSE_CHAR> predicate) {
+		return Arrays.stream(MORSE_CHAR.values()).filter(predicate);
 	}
 	
 	public static Stream<MORSE_CHAR> getBy(MORSE_TYPE t) {
