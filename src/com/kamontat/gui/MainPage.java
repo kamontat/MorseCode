@@ -24,7 +24,7 @@ public class MainPage extends JFrame {
 		encodeBtn.addActionListener(e -> {
 			EncodePage page = new EncodePage();
 			page.run(getLocation(), getSize());
-			dispose();gi
+			dispose();
 		});
 	}
 	

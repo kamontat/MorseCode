@@ -22,12 +22,20 @@ public class DecodePage extends JFrame {
 	private JComboBox SC_ComboBox;
 	private JTextField textField;
 	private JButton okBtn;
+	private JButton moreBtn;
+	private JButton sBtn;
+	private JButton lBtn;
+	private JPanel morePanel;
+	private JButton sbBtn;
+	private JButton nwBtn;
+	private JPanel selectedPanel;
 	
 	public DecodePage() {
 		super("Decode Page");
 		setContentPane(ContentPane);
 		addComboboxItem();
 		addMenu();
+		addMoreEvent();
 	}
 	
 	private void addMenu() {
@@ -63,9 +71,8 @@ public class DecodePage extends JFrame {
 		});
 	}
 	
-	public MORSE_CHAR getChar(MORSE_TYPE t) {
-		Stream<MORSE_CHAR> stream = MORSE_CHAR.getBy(t);
-		return stream.filter(morse_char -> morse_char.same(getBox(t).getSelectedItem())).findFirst().get();
+	private void addMoreEvent() {
+		moreBtn.addActionListener(e -> toggle());
 	}
 	
 	private JComboBox getBox(MORSE_TYPE t) {
@@ -82,8 +89,25 @@ public class DecodePage extends JFrame {
 		return null;
 	}
 	
+	private void toggle() {
+		boolean toggle = morePanel.isVisible();
+		morePanel.setVisible(!toggle);
+		selectedPanel.setVisible(toggle);
+		
+		textField.setEnabled(!toggle);
+		
+		pack();
+		setMinimumSize(new Dimension(getWidth(), getHeight()));
+	}
+	
+	public MORSE_CHAR getChar(MORSE_TYPE t) {
+		Stream<MORSE_CHAR> stream = MORSE_CHAR.getBy(t);
+		return stream.filter(morse_char -> morse_char.same(getBox(t).getSelectedItem())).findFirst().get();
+	}
+	
 	public void run(Point point, Dimension size) {
-		setMinimumSize(new Dimension(451, 280));
+		pack();
+		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		setSize(size);
 		setLocation(point);
 		setVisible(true);
