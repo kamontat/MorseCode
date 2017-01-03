@@ -7,6 +7,7 @@ import javax.xml.stream.Location;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author kamontat
@@ -14,8 +15,8 @@ import java.util.*;
  * @since 1/2/2017 AD - 5:33 PM
  */
 public class Morse {
-	private static MORSE_CHAR SEPARATE_WORD = MORSE_CHAR.C_DEFAULT;
-	private static MORSE_CHAR SEPARATE_ALPHABET = MORSE_CHAR.C_B;
+	private static MORSE_CHAR SEPARATE_WORD = MORSE_CHAR.W_DEFAULT;
+	private static MORSE_CHAR SEPARATE_CHAR = MORSE_CHAR.C_DEFAULT;
 	private static MORSE_CHAR SHORT_CHAR = MORSE_CHAR.S_DEFAULT;
 	private static MORSE_CHAR LONG_CHAR = MORSE_CHAR.L_DEFAULT;
 	private static TreeMap<String, LinkedHashMap<String, String>> morse_char = new TreeMap<>();
@@ -47,26 +48,28 @@ public class Morse {
 	
 	public static void set(MORSE_CHAR word, MORSE_CHAR alphabet, MORSE_CHAR shortC, MORSE_CHAR longC) {
 		SEPARATE_WORD = word;
-		SEPARATE_ALPHABET = alphabet;
+		SEPARATE_CHAR = alphabet;
 		SHORT_CHAR = shortC;
 		LONG_CHAR = longC;
 	}
 	
 	public String decode(String morse_txt) {
+		morse_txt = convert(convert(morse_txt, MORSE_CHAR.S_DEFAULT), MORSE_CHAR.L_DEFAULT);
 		String txt = "";
-		String words[] = morse_txt.split(String.valueOf(SEPARATE_WORD.chr));
+		String words[] = morse_txt.split(Pattern.quote(String.valueOf(SEPARATE_WORD.chr)));
 		for (String w : words) {
-			String chars[] = w.split(String.valueOf(SEPARATE_ALPHABET.chr));
+			String chars[] = w.split(Pattern.quote(String.valueOf(SEPARATE_CHAR.chr)));
 			for (String c : chars) {
 				txt += normal_char.get(c);
 			}
 			txt += " ";
 		}
-		return txt;
+		return txt.substring(0, txt.length() - 1);
 	}
 	
 	public String encode(String txt) {
 		String de = "";
+		
 		for (String w : txt.split(" ")) {
 			for (int i = 0; i < w.length(); i++) {
 				Character c = w.toUpperCase().charAt(i);
@@ -77,11 +80,11 @@ public class Morse {
 				} else {
 					de += morse_char.get("M").get(String.valueOf(c));
 				}
-				de += SEPARATE_ALPHABET.chr;
+				if (i < w.length() - 1) de += SEPARATE_CHAR.chr;
 			}
 			de += SEPARATE_WORD.chr;
 		}
-		return de;
+		return convert(convert(de.substring(0, de.length() - 1), SHORT_CHAR), LONG_CHAR);
 	}
 	
 	public String convert(String txt, MORSE_CHAR xx) {
@@ -95,5 +98,4 @@ public class Morse {
 		}
 		return temp;
 	}
-	
 }

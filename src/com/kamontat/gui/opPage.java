@@ -13,8 +13,6 @@ import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
-import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * @author kamontat
@@ -151,6 +149,8 @@ public class opPage extends JFrame {
 			} catch (BadLocationException ignored) {
 			}
 		});
+		
+		okBtn.addActionListener(e -> OKEvent());
 	}
 	
 	private void addBtnMoreEvent() {
@@ -158,6 +158,12 @@ public class opPage extends JFrame {
 		lBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.LONG_CHAR).chr));
 		ncBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SEPARATE_CHAR).chr));
 		nwBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SEPARATE_WORD).chr));
+	}
+	
+	private void OKEvent() {
+		Morse.set(getChar(MORSE_TYPE.SEPARATE_WORD), getChar(MORSE_TYPE.SEPARATE_CHAR), getChar(MORSE_TYPE.SHORT_CHAR), getChar(MORSE_TYPE.LONG_CHAR));
+		String txt = (t == PageType.Decode ? morse.decode(textField.getText()): morse.encode(textField.getText()));
+		System.out.println(txt);
 	}
 	
 	private JComboBox getBox(MORSE_TYPE t) {
@@ -221,10 +227,7 @@ public class opPage extends JFrame {
 	}
 	
 	public MORSE_CHAR getChar(MORSE_TYPE t) {
-		Stream<MORSE_CHAR> stream = MORSE_CHAR.getBy(t);
-		Optional<MORSE_CHAR> optional = stream.filter(morse_char -> morse_char.sameC(getBox(t).getSelectedItem())).findFirst();
-		if (optional.isPresent()) return optional.get();
-		return stream.findFirst().get();
+		return (MORSE_CHAR) getBox(t).getSelectedItem();
 	}
 	
 	public void run(Point point, Dimension size) {
