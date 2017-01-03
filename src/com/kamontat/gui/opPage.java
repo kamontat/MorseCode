@@ -91,8 +91,7 @@ public class opPage extends JFrame {
 				SC_ComboBox.setSelectedIndex(SC_ComboBox.getSelectedIndex() + 1 == SC_ComboBox.getItemCount() ? 0: SC_ComboBox.getSelectedIndex() + 1);
 			
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				textField.setText(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
-				inputAction();
+				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		SC_ComboBox.addItemListener(e -> {
@@ -101,20 +100,17 @@ public class opPage extends JFrame {
 				SW_ComboBox.setSelectedIndex(SW_ComboBox.getSelectedIndex() + 1 == SW_ComboBox.getItemCount() ? 0: SW_ComboBox.getSelectedIndex() + 1);
 			
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				textField.setText(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
-				inputAction();
+				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		L_ComboBox.addItemListener(e -> {
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				textField.setText(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
-				inputAction();
+				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		S_ComboBox.addItemListener(e -> {
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				textField.setText(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
-				inputAction();
+				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 	}
@@ -161,11 +157,12 @@ public class opPage extends JFrame {
 	}
 	
 	private void OKEvent() {
+		String m, n;
 		Morse.set(getChar(MORSE_TYPE.SEPARATE_WORD), getChar(MORSE_TYPE.SEPARATE_CHAR), getChar(MORSE_TYPE.SHORT_CHAR), getChar(MORSE_TYPE.LONG_CHAR));
 		String txt = (t == PageType.Decode ? morse.decode(textField.getText()): morse.encode(textField.getText()));
-		System.out.println(txt);
-		ShowPage page = new ShowPage();
-		page.run(this.getLocation());
+		m = (t == PageType.Decode ? textField.getText(): txt);
+		n = (t == PageType.Decode ? txt: textField.getText());
+		new ShowPage(this, m, n).run(new Point(this.getLocation().x + this.getWidth(), this.getLocation().y), getSize());
 	}
 	
 	private JComboBox getBox(MORSE_TYPE t) {
@@ -180,6 +177,11 @@ public class opPage extends JFrame {
 				return SC_ComboBox;
 		}
 		return null;
+	}
+	
+	private void setTextField(String text) {
+		textField.setText(text);
+		inputAction();
 	}
 	
 	private void toggle() {

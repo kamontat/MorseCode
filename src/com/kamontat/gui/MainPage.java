@@ -31,8 +31,8 @@ public class MainPage extends JFrame {
 	}
 	
 	public void run(Point point) {
-		setMinimumSize(new Dimension(259, 110));
 		pack();
+		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		setLocation(point);
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
