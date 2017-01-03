@@ -164,6 +164,8 @@ public class opPage extends JFrame {
 		Morse.set(getChar(MORSE_TYPE.SEPARATE_WORD), getChar(MORSE_TYPE.SEPARATE_CHAR), getChar(MORSE_TYPE.SHORT_CHAR), getChar(MORSE_TYPE.LONG_CHAR));
 		String txt = (t == PageType.Decode ? morse.decode(textField.getText()): morse.encode(textField.getText()));
 		System.out.println(txt);
+		ShowPage page = new ShowPage();
+		page.run(this.getLocation());
 	}
 	
 	private JComboBox getBox(MORSE_TYPE t) {
