@@ -54,17 +54,24 @@ public class Morse {
 	}
 	
 	public String decode(String morse_txt) {
+		double parentheses = 0;
 		morse_txt = convert(convert(morse_txt, MORSE_CHAR.S_DEFAULT), MORSE_CHAR.L_DEFAULT);
 		String txt = "";
 		String words[] = morse_txt.split(Pattern.quote(String.valueOf(SEPARATE_WORD.chr)));
 		for (String w : words) {
 			String chars[] = w.split(Pattern.quote(String.valueOf(SEPARATE_CHAR.chr)));
 			for (String c : chars) {
-				txt += normal_char.get(c);
+				String cc = normal_char.get(c);
+				if (cc.equals("(")) parentheses++;
+				txt += cc;
 			}
 			txt += " ";
 		}
-		return txt.substring(0, txt.length() - 1);
+		txt = txt.substring(0, txt.length() - 1);
+		if (parentheses % 2 == 0) {
+			// parentheses issue
+		}
+		return txt;
 	}
 	
 	public String encode(String txt) {
