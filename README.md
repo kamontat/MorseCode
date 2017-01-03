@@ -8,8 +8,8 @@ Beta Release (v0.x-bx)
 - v0.1-b2 <- **Decode** and **Encode** is DONE BUT not show
 - v0.2-b4 <- All result are **Shown**
 
-Release Candidate (v0.x-rcx)
-- 
+Release Candidate (v1.x-rcx)
+- v1.0-rc1 <- **Done** (3/Jan/60)
 
 - Version 1
   -
