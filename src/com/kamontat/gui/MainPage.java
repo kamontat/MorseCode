@@ -1,5 +1,7 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.constant.PageType;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,12 +19,12 @@ public class MainPage extends JFrame {
 		super("MainPage Page");
 		setContentPane(ContentPane);
 		decodeBtn.addActionListener(e -> {
-			DecodePage page = new DecodePage();
+			opPage page = new opPage(PageType.Decode);
 			page.run(getLocation(), getSize());
 			dispose();
 		});
 		encodeBtn.addActionListener(e -> {
-			EncodePage page = new EncodePage();
+			opPage page = new opPage(PageType.Encode);
 			page.run(getLocation(), getSize());
 			dispose();
 		});
