@@ -8,7 +8,6 @@ import com.kamontat.gui.MainPage;
 import com.kamontat.gui.opPage;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 
 /**
  * @author kamontat
@@ -19,9 +18,8 @@ public class TopMenu {
 	public static JMenuItem back(JFrame curF) {
 		JMenuItem item;
 		
-		item = new JMenuItem("(B)ack");
-		item.setMnemonic(KeyEvent.VK_B);
-		item.getAccessibleContext().setAccessibleDescription("Go back to main page");
+		item = new JMenuItem("Back");
+		item.setAccelerator(HotKey.back);
 		item.addActionListener(e -> {
 			new MainPage().run(curF.getLocation());
 			curF.dispose();
@@ -33,9 +31,8 @@ public class TopMenu {
 	public static JMenuItem decodePage(JFrame curF) {
 		JMenuItem item;
 		
-		item = new JMenuItem("(D)ecode");
+		item = new JMenuItem("Decode");
 		item.setAccelerator(HotKey.decode_a);
-		item.getAccessibleContext().setAccessibleDescription("Go to decode page");
 		item.addActionListener(e -> {
 			new opPage(PageType.Decode).run(curF.getLocation(), curF.getSize());
 			curF.dispose();
@@ -47,7 +44,7 @@ public class TopMenu {
 	public static JMenuItem encodePage(JFrame curF) {
 		JMenuItem item;
 		
-		item = new JMenuItem("(E)ncode");
+		item = new JMenuItem("Encode");
 		item.setAccelerator(HotKey.encode_a);
 		item.addActionListener(e -> {
 			new opPage(PageType.Encode).run(curF.getLocation(), curF.getSize());
@@ -69,7 +66,7 @@ public class TopMenu {
 	private static JMenuItem about(JFrame curF) {
 		JMenuItem item;
 		
-		item = new JMenuItem(String.format("(A)bout (%s)", Constant.version));
+		item = new JMenuItem(String.format("About (%s)", Constant.version));
 		item.setAccelerator(HotKey.about);
 		item.addActionListener(e -> AboutPage.run(curF));
 		

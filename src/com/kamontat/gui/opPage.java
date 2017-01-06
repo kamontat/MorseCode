@@ -12,7 +12,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
 
 /**
  * @author kamontat
@@ -68,10 +67,8 @@ public class opPage extends JFrame {
 	
 	private void addMenu() {
 		JMenuBar menu = new JMenuBar();
-		JMenu actions = new JMenu("(L)ink");
+		JMenu actions = new JMenu("Link");
 		
-		actions.setMnemonic(KeyEvent.VK_L);
-		actions.getAccessibleContext().setAccessibleDescription("This Menu will map you going to some other page...");
 		actions.add(TopMenu.back(this));
 		actions.add(t == PageType.Decode ? TopMenu.encodePage(this): TopMenu.decodePage(this));
 		
