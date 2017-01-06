@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.constant.PageType;
+import com.kamontat.code.controller.TopMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class MainPage extends JFrame {
 	public MainPage() {
 		super("MainPage Page");
 		setContentPane(ContentPane);
+		addMenu();
 		decodeBtn.addActionListener(e -> {
 			opPage page = new opPage(PageType.Decode);
 			page.run(getLocation(), getSize());
@@ -28,6 +30,13 @@ public class MainPage extends JFrame {
 			page.run(getLocation(), getSize());
 			dispose();
 		});
+	}
+	
+	private void addMenu() {
+		JMenuBar menu = new JMenuBar();
+		menu.add(Box.createHorizontalGlue());
+		menu.add(TopMenu.about(this));
+		setJMenuBar(menu);
 	}
 	
 	public void run(Point point) {

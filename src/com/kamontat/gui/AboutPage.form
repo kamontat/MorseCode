@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.kamontat.gui.AboutPage">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="48" y="54" width="436" height="513"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="94766" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <hspacer id="98af6">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <grid id="9538f" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="e7465" class="javax.swing.JButton" binding="buttonOK">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="OK"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="e3588" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="ea619" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="105d5" class="javax.swing.JButton" binding="infoBtn">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="information"/>
+                </properties>
+              </component>
+              <grid id="65a21" binding="helpPanel" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <visible value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="a0ab0" class="javax.swing.JButton" binding="ntkBtn">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Need to Know"/>
+                    </properties>
+                  </component>
+                  <scrollpane id="56d4a" binding="ntkPanel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <visible value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="bc274" class="javax.swing.JTextPane">
+                        <constraints/>
+                        <properties>
+                          <editable value="false"/>
+                          <enabled value="true"/>
+                          <preferredSize width="300" height="96"/>
+                          <text value="1) This program develop by MIT license so you can add modify or do everything you want.&#10;2) This program will change you text to morse-code or otherwise BUT we need to know which character you use in your text So first you may have to change character by using combobox."/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                  <component id="cf984" class="javax.swing.JButton" binding="conMtoNBtn">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="How to convert Morse -&gt; Text"/>
+                    </properties>
+                  </component>
+                  <scrollpane id="e8257" binding="mnPanel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <visible value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="3b617" class="javax.swing.JTextPane">
+                        <constraints/>
+                        <properties>
+                          <editable value="false"/>
+                          <enabled value="true"/>
+                          <preferredSize width="300" height="64"/>
+                          <text value="1) Click on &quot;decode&quot;&#10;2) change character until textfield isn't red if can't you may don't try all or something else&#10;3) if isn't red so you can click on &quot;OK&quot; to convert and DONE"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                  <component id="e221e" class="javax.swing.JButton" binding="conNtoMBtn">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="How to convert Text -&gt; Morse"/>
+                    </properties>
+                  </component>
+                  <scrollpane id="166b2" binding="nmPanel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <visible value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="8a5f6" class="javax.swing.JTextPane">
+                        <constraints/>
+                        <properties>
+                          <editable value="false"/>
+                          <preferredSize width="300" height="50"/>
+                          <text value="1) Click on &quot;encode&quot;&#10;2) change your wanted character and click &quot;OK&quot;&#10;3) DONE"/>
+                          <visible value="true"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                </children>
+              </grid>
+              <component id="9f140" class="javax.swing.JButton" binding="helpBtn">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Help"/>
+                </properties>
+              </component>
+              <grid id="4dc24" binding="infoPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <visible value="false"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <scrollpane id="6ac3">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <visible value="true"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="7899d" class="javax.swing.JTextPane" default-binding="true">
+                        <constraints/>
+                        <properties>
+                          <editable value="false"/>
+                          <preferredSize width="300" height="112"/>
+                          <requestFocusEnabled value="true"/>
+                          <text value="What: Morse &lt;-&gt; Text Converter&#10;Where: MacOS(develop) + PC(tester)&#10;Who: Kamontat Chantrachirathumrong (kamontat_c@hotmail.com)&#10;Why: Funny, sent Secret Message&#10;How: Java+jackson(Framework) with intellIJ&#10;"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
