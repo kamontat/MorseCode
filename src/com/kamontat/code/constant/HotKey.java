@@ -19,9 +19,22 @@ public class HotKey {
 	public static final KeyStroke decode_a = KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.ALT_MASK);
 	public static final KeyStroke decode = KeyStroke.getKeyStroke(KeyEvent.VK_D, 0);
 	
-	public static final KeyStroke ok = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+	public static final KeyStroke morse = KeyStroke.getKeyStroke(KeyEvent.VK_M, getCTRL_MASK());
+	public static final KeyStroke normal = KeyStroke.getKeyStroke(KeyEvent.VK_N, getCTRL_MASK());
+	
+	public static final KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+	public static final KeyStroke ok = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, getCTRL_MASK());
 	public static final KeyStroke back = KeyStroke.getKeyStroke(KeyEvent.VK_B, getCTRL_MASK());
 	public static final KeyStroke delete = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0);
+	
+	public static final KeyStroke cut = KeyStroke.getKeyStroke(KeyEvent.VK_X, getCTRL_MASK());
+	public static final KeyStroke copy = KeyStroke.getKeyStroke(KeyEvent.VK_C, getCTRL_MASK());
+	public static final KeyStroke paste = KeyStroke.getKeyStroke(KeyEvent.VK_V, getCTRL_MASK());
+	public static final KeyStroke delete_all = KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, getCTRL_MASK());
+	
+	public HotKey(String name, KeyStroke ks) {
+		
+	}
 	
 	private static int getCTRL_MASK() {
 		return SystemUtils.IS_OS_MAC ? InputEvent.META_MASK: InputEvent.CTRL_MASK;

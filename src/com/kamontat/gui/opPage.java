@@ -77,6 +77,7 @@ public class opPage extends JFrame {
 		actions.add(t == PageType.Decode ? TopMenu.encodePage(this): TopMenu.decodePage(this));
 		
 		menu.add(actions);
+		menu.add(TopMenu.edit(textArea));
 		menu.add(Box.createHorizontalGlue());
 		menu.add(TopMenu.setting(this));
 		
