@@ -1,7 +1,10 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.constant.HotKey;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * @author kamontat
@@ -13,10 +16,6 @@ public class ShowPage extends JDialog {
 	private JTextPane morseTP;
 	private JButton backBtn;
 	private JPanel contentPane;
-	private JButton copyMBtn;
-	private JButton copyNBtn;
-	private JButton selectAllMBtn;
-	private JButton selectAllNBtn;
 	
 	public ShowPage(Frame f, String morse, String normal) {
 		super(f);
@@ -25,6 +24,7 @@ public class ShowPage extends JDialog {
 		addText(morse, normal);
 		
 		addBtnEvent();
+		addShortKey();
 	}
 	
 	private void addText(String m, String n) {
@@ -34,27 +34,52 @@ public class ShowPage extends JDialog {
 	}
 	
 	private void addBtnEvent() {
-		backBtn.addActionListener(e -> dispose());
+		Action back = getBackAction();
 		
-		copyMBtn.addActionListener(e -> {
-			morseTP.requestFocus();
-			morseTP.selectAll();
-			morseTP.copy();
-		});
-		selectAllMBtn.addActionListener(e -> {
-			morseTP.requestFocus();
-			morseTP.selectAll();
-		});
+		backBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.back, "back");
+		backBtn.getActionMap().put("back", back);
+		backBtn.addActionListener(back);
+	}
+	
+	private void addShortKey() {
+		Action selectAllMAction = getSelectAllMAction();
+		morseTP.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.morse, "selectAllMAction");
+		morseTP.getActionMap().put("selectAllMAction", selectAllMAction);
+		morseTP.setToolTipText("shortcut: " + HotKey.toString(HotKey.morse));
 		
-		copyNBtn.addActionListener(e -> {
-			normalTP.requestFocus();
-			normalTP.selectAll();
-			normalTP.copy();
-		});
-		selectAllNBtn.addActionListener(e -> {
-			normalTP.requestFocus();
-			normalTP.selectAll();
-		});
+		Action selectAllNAction = getSelectAllNAction();
+		normalTP.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.normal, "selectAllNAction");
+		normalTP.getActionMap().put("selectAllNAction", selectAllNAction);
+		morseTP.setToolTipText("shortcut: " + HotKey.toString(HotKey.normal));
+	}
+	
+	private Action getBackAction() {
+		return new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		};
+	}
+	
+	private Action getSelectAllMAction() {
+		return new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				morseTP.requestFocus();
+				morseTP.selectAll();
+			}
+		};
+	}
+	
+	private Action getSelectAllNAction() {
+		return new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				normalTP.requestFocus();
+				normalTP.selectAll();
+			}
+		};
 	}
 	
 	public void run(Point point, Dimension d) {
