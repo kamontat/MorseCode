@@ -2,6 +2,7 @@ package com.kamontat.gui;
 
 import com.kamontat.code.constant.HotKey;
 import com.kamontat.code.constant.PageType;
+import com.kamontat.code.controller.Display;
 import com.kamontat.code.controller.TopMenu;
 
 import javax.swing.*;
@@ -26,13 +27,15 @@ public class MainPage extends JFrame {
 		Action decodeAction = getAction(PageType.Decode);
 		Action encodeAction = getAction(PageType.Encode);
 		
-		decodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.decode.getKeyStroke(), "decodeAction"); // add key
+		decodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.DECODE.getKeyStroke(), "decodeAction"); // add key
 		decodeBtn.getActionMap().put("decodeAction", decodeAction); // add action (call with key press)
 		decodeBtn.addActionListener(decodeAction); // add action (call when press button)
 		
-		encodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.encode.getKeyStroke(), "encodeAction");
+		encodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.ENCODE.getKeyStroke(), "encodeAction");
 		encodeBtn.getActionMap().put("encodeAction", encodeAction);
 		encodeBtn.addActionListener(encodeAction);
+		
+		pack();
 	}
 	
 	private Action getAction(PageType t) {
@@ -53,10 +56,10 @@ public class MainPage extends JFrame {
 		setJMenuBar(menu);
 	}
 	
-	public void run(Point point) {
+	public void run() {
 		pack();
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
-		setLocation(point);
+		setLocation(Display.getCenterLocation(getSize()));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}

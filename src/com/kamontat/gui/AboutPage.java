@@ -1,5 +1,7 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.controller.Display;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -29,20 +31,17 @@ public class AboutPage extends JDialog {
 	private static AboutPage page;
 	
 	public static void run(JFrame f) {
-		if (page == null) page = new AboutPage();
-		page.run(f.getLocation());
+		run(f, false, false);
 	}
 	
 	public static void run(JFrame f, boolean info) {
-		if (page == null) page = new AboutPage();
-		page.setVisible(info, false, false, false, false);
-		page.run(f.getLocation());
+		run(f, info, false);
 	}
 	
 	public static void run(JFrame f, boolean info, boolean help) {
 		if (page == null) page = new AboutPage();
 		page.setVisible(info, help, false, false, false);
-		page.run(f.getLocation());
+		page.run();
 	}
 	
 	public static void run(JFrame f, boolean info, boolean ntk, boolean mToN, boolean nToM) {
@@ -50,7 +49,7 @@ public class AboutPage extends JDialog {
 		if (page == null) page = new AboutPage();
 		if (!ntk && !mToN && !nToM) h = false;
 		page.setVisible(info, h, ntk, mToN, nToM);
-		page.run(f.getLocation());
+		page.run();
 	}
 	
 	public AboutPage() {
@@ -64,6 +63,7 @@ public class AboutPage extends JDialog {
 		ntkBtn.addActionListener(e -> setVisible(ntkPanel));
 		conMtoNBtn.addActionListener(e -> setVisible(mnPanel));
 		conNtoMBtn.addActionListener(e -> setVisible(nmPanel));
+		keyTableBtn.addActionListener(e -> new KeyTablePage().run(this.getLocation()));
 		
 		// call onCancel() when cross is clicked
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -110,10 +110,10 @@ public class AboutPage extends JDialog {
 		ntkPanel.setVisible(e);
 	}
 	
-	private void run(Point point) {
+	private void run() {
 		pack();
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
-		setLocation(point);
+		setLocation(Display.getCenterLocation(getSize()));
 		setVisible(true);
 	}
 	
