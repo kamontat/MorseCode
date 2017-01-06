@@ -20,7 +20,9 @@ public class AboutPage extends JDialog {
 	private JButton conMtoNBtn;
 	private JButton conNtoMBtn;
 	
-	private JScrollPane ntkPanel;
+	private JButton keyTableBtn;
+	
+	private JPanel ntkPanel;
 	private JScrollPane mnPanel;
 	private JScrollPane nmPanel;
 	
@@ -28,6 +30,26 @@ public class AboutPage extends JDialog {
 	
 	public static void run(JFrame f) {
 		if (page == null) page = new AboutPage();
+		page.run(f.getLocation());
+	}
+	
+	public static void run(JFrame f, boolean info) {
+		if (page == null) page = new AboutPage();
+		page.setVisible(info, false, false, false, false);
+		page.run(f.getLocation());
+	}
+	
+	public static void run(JFrame f, boolean info, boolean help) {
+		if (page == null) page = new AboutPage();
+		page.setVisible(info, help, false, false, false);
+		page.run(f.getLocation());
+	}
+	
+	public static void run(JFrame f, boolean info, boolean ntk, boolean mToN, boolean nToM) {
+		boolean h = true;
+		if (page == null) page = new AboutPage();
+		if (!ntk && !mToN && !nToM) h = false;
+		page.setVisible(info, h, ntk, mToN, nToM);
 		page.run(f.getLocation());
 	}
 	
@@ -64,6 +86,28 @@ public class AboutPage extends JDialog {
 	private void setVisible(JComponent c) {
 		c.setVisible(!c.isVisible());
 		pack();
+	}
+	
+	/**
+	 * set panel visible for more easy to look
+	 *
+	 * @param a
+	 * 		information Panel
+	 * @param b
+	 * 		help Panel
+	 * @param c
+	 * 		need to know Panel
+	 * @param d
+	 * 		morse to normal Panel
+	 * @param e
+	 * 		normal to morse Panel
+	 */
+	private void setVisible(boolean a, boolean b, boolean c, boolean d, boolean e) {
+		infoPanel.setVisible(a);
+		helpPanel.setVisible(b);
+		ntkPanel.setVisible(c);
+		mnPanel.setVisible(d);
+		ntkPanel.setVisible(e);
 	}
 	
 	private void run(Point point) {

@@ -62,7 +62,7 @@ public class Morse {
 			String chars[] = w.split(Pattern.quote(String.valueOf(SEPARATE_CHAR.chr)));
 			for (String c : chars) {
 				String cc = normal_char.get(c);
-				if (cc.equals("(")) parentheses++;
+				if (cc != null && cc.equals("(")) parentheses++;
 				txt += cc;
 			}
 			txt += " ";

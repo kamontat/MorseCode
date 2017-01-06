@@ -77,7 +77,7 @@ public class opPage extends JFrame {
 		
 		menu.add(actions);
 		menu.add(Box.createHorizontalGlue());
-		menu.add(TopMenu.about(this));
+		menu.add(TopMenu.setting(this));
 		
 		setJMenuBar(menu);
 	}

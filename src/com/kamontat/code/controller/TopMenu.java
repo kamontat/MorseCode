@@ -1,13 +1,13 @@
 package com.kamontat.code.controller;
 
+import com.kamontat.code.constant.Constant;
+import com.kamontat.code.constant.HotKey;
 import com.kamontat.code.constant.PageType;
 import com.kamontat.gui.AboutPage;
 import com.kamontat.gui.MainPage;
 import com.kamontat.gui.opPage;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import java.awt.event.KeyEvent;
 
 /**
@@ -34,7 +34,7 @@ public class TopMenu {
 		JMenuItem item;
 		
 		item = new JMenuItem("(D)ecode");
-		item.setMnemonic(KeyEvent.VK_D);
+		item.setAccelerator(HotKey.decode_a);
 		item.getAccessibleContext().setAccessibleDescription("Go to decode page");
 		item.addActionListener(e -> {
 			new opPage(PageType.Decode).run(curF.getLocation(), curF.getSize());
@@ -48,8 +48,7 @@ public class TopMenu {
 		JMenuItem item;
 		
 		item = new JMenuItem("(E)ncode");
-		item.setMnemonic(KeyEvent.VK_E);
-		item.getAccessibleContext().setAccessibleDescription("Go to encode page");
+		item.setAccelerator(HotKey.encode_a);
 		item.addActionListener(e -> {
 			new opPage(PageType.Encode).run(curF.getLocation(), curF.getSize());
 			curF.dispose();
@@ -58,27 +57,22 @@ public class TopMenu {
 		return item;
 	}
 	
-	public static JMenu about(JFrame curF) {
-		JMenu item;
+	public static JMenu setting(JFrame curF) {
+		JMenu menu;
 		
-		item = new JMenu("About");
-		item.setFocusable(false);
-		item.addMenuListener(new MenuListener() {
-			@Override
-			public void menuSelected(MenuEvent e) {
-				AboutPage.run(curF);
-				item.doClick();
-			}
-			
-			@Override
-			public void menuDeselected(MenuEvent e) {
-			}
-			
-			@Override
-			public void menuCanceled(MenuEvent e) {
-			}
-		}); // add event
-		item.setMnemonic(KeyEvent.VK_A); // add hot-key
+		menu = new JMenu("Setting");
+		menu.add(about(curF));
+		
+		return menu;
+	}
+	
+	private static JMenuItem about(JFrame curF) {
+		JMenuItem item;
+		
+		item = new JMenuItem(String.format("(A)bout (%s)", Constant.version));
+		item.setAccelerator(HotKey.about);
+		item.addActionListener(e -> AboutPage.run(curF));
+		
 		return item;
 	}
 }

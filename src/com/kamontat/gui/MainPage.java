@@ -1,10 +1,12 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.constant.HotKey;
 import com.kamontat.code.constant.PageType;
 import com.kamontat.code.controller.TopMenu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * @author kamontat
@@ -20,22 +22,34 @@ public class MainPage extends JFrame {
 		super("MainPage Page");
 		setContentPane(ContentPane);
 		addMenu();
-		decodeBtn.addActionListener(e -> {
-			opPage page = new opPage(PageType.Decode);
-			page.run(getLocation(), getSize());
-			dispose();
-		});
-		encodeBtn.addActionListener(e -> {
-			opPage page = new opPage(PageType.Encode);
-			page.run(getLocation(), getSize());
-			dispose();
-		});
+		
+		Action decodeAction = getAction(PageType.Decode);
+		Action encodeAction = getAction(PageType.Encode);
+		
+		decodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.decode, "decodeAction");
+		decodeBtn.getActionMap().put("decodeAction", decodeAction);
+		decodeBtn.addActionListener(decodeAction);
+		
+		encodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.encode, "encodeAction");
+		encodeBtn.getActionMap().put("encodeAction", encodeAction);
+		encodeBtn.addActionListener(encodeAction);
+	}
+	
+	private Action getAction(PageType t) {
+		return new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				opPage page = new opPage(t);
+				page.run(getLocation(), getSize());
+				dispose();
+			}
+		};
 	}
 	
 	private void addMenu() {
 		JMenuBar menu = new JMenuBar();
 		menu.add(Box.createHorizontalGlue());
-		menu.add(TopMenu.about(this));
+		menu.add(TopMenu.setting(this));
 		setJMenuBar(menu);
 	}
 	
