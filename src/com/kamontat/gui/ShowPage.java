@@ -36,21 +36,21 @@ public class ShowPage extends JDialog {
 	private void addBtnEvent() {
 		Action back = getBackAction();
 		
-		backBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.back, "back");
+		backBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.back.getKeyStroke(), "back");
 		backBtn.getActionMap().put("back", back);
 		backBtn.addActionListener(back);
 	}
 	
 	private void addShortKey() {
 		Action selectAllMAction = getSelectAllMAction();
-		morseTP.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.morse, "selectAllMAction");
+		morseTP.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.morse.getKeyStroke(), "selectAllMAction");
 		morseTP.getActionMap().put("selectAllMAction", selectAllMAction);
-		morseTP.setToolTipText("shortcut: " + HotKey.toString(HotKey.morse));
+		morseTP.setToolTipText("shortcut: " + HotKey.morse.getKeyString());
 		
 		Action selectAllNAction = getSelectAllNAction();
-		normalTP.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.normal, "selectAllNAction");
+		normalTP.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.normal.getKeyStroke(), "selectAllNAction");
 		normalTP.getActionMap().put("selectAllNAction", selectAllNAction);
-		morseTP.setToolTipText("shortcut: " + HotKey.toString(HotKey.normal));
+		morseTP.setToolTipText("shortcut: " + HotKey.normal.getKeyString());
 	}
 	
 	private Action getBackAction() {
@@ -85,6 +85,7 @@ public class ShowPage extends JDialog {
 	public void run(Point point, Dimension d) {
 		pack();
 		setMinimumSize(new Dimension(getWidth(), d.height));
+		setSize(d);
 		setLocation(point);
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

@@ -157,11 +157,11 @@ public class opPage extends JFrame {
 			}
 		};
 		
-		okBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.ok, "okAction");
+		okBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.ok.getKeyStroke(), "okAction");
 		okBtn.getActionMap().put("okAction", okAction);
 		okBtn.addActionListener(e -> OKEvent());
 		
-		deleteBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.delete, "deleteAction");
+		deleteBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.delete.getKeyStroke(), "deleteAction");
 		deleteBtn.getActionMap().put("deleteAction", deleteAction);
 		deleteBtn.addActionListener(e -> deleteText(1));
 	}

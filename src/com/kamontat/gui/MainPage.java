@@ -26,11 +26,11 @@ public class MainPage extends JFrame {
 		Action decodeAction = getAction(PageType.Decode);
 		Action encodeAction = getAction(PageType.Encode);
 		
-		decodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.decode, "decodeAction"); // add key
+		decodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.decode.getKeyStroke(), "decodeAction"); // add key
 		decodeBtn.getActionMap().put("decodeAction", decodeAction); // add action (call with key press)
 		decodeBtn.addActionListener(decodeAction); // add action (call when press button)
 		
-		encodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.encode, "encodeAction");
+		encodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.encode.getKeyStroke(), "encodeAction");
 		encodeBtn.getActionMap().put("encodeAction", encodeAction);
 		encodeBtn.addActionListener(encodeAction);
 	}

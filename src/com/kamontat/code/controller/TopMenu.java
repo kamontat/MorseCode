@@ -20,7 +20,7 @@ public class TopMenu {
 		JMenuItem item;
 		
 		item = new JMenuItem("Back");
-		item.setAccelerator(HotKey.back);
+		item.setAccelerator(HotKey.back.getKeyStroke());
 		item.addActionListener(e -> {
 			new MainPage().run(curF.getLocation());
 			curF.dispose();
@@ -33,7 +33,7 @@ public class TopMenu {
 		JMenuItem item;
 		
 		item = new JMenuItem("Decode");
-		item.setAccelerator(HotKey.decode_a);
+		item.setAccelerator(HotKey.decode_a.getKeyStroke());
 		item.addActionListener(e -> {
 			new opPage(PageType.Decode).run(curF.getLocation(), curF.getSize());
 			curF.dispose();
@@ -46,7 +46,7 @@ public class TopMenu {
 		JMenuItem item;
 		
 		item = new JMenuItem("Encode");
-		item.setAccelerator(HotKey.encode_a);
+		item.setAccelerator(HotKey.encode_a.getKeyStroke());
 		item.addActionListener(e -> {
 			new opPage(PageType.Encode).run(curF.getLocation(), curF.getSize());
 			curF.dispose();
@@ -68,7 +68,7 @@ public class TopMenu {
 		JMenuItem item;
 		
 		item = new JMenuItem(String.format("About (%s)", Constant.version));
-		item.setAccelerator(HotKey.about);
+		item.setAccelerator(HotKey.about.getKeyStroke());
 		item.addActionListener(e -> AboutPage.run(curF));
 		
 		return item;
@@ -89,7 +89,7 @@ public class TopMenu {
 	private static JMenuItem cut(JTextComponent t) {
 		JMenuItem item;
 		item = new JMenuItem("cut");
-		item.setAccelerator(HotKey.cut);
+		item.setAccelerator(HotKey.cut.getKeyStroke());
 		item.addActionListener(e -> {
 			t.requestFocus();
 			t.cut();
@@ -100,7 +100,7 @@ public class TopMenu {
 	private static JMenuItem copy(JTextComponent t) {
 		JMenuItem item;
 		item = new JMenuItem("copy");
-		item.setAccelerator(HotKey.copy);
+		item.setAccelerator(HotKey.copy.getKeyStroke());
 		item.addActionListener(e -> {
 			t.requestFocus();
 			t.copy();
@@ -111,7 +111,7 @@ public class TopMenu {
 	private static JMenuItem paste(JTextComponent t) {
 		JMenuItem item;
 		item = new JMenuItem("paste");
-		item.setAccelerator(HotKey.paste);
+		item.setAccelerator(HotKey.paste.getKeyStroke());
 		item.addActionListener(e -> {
 			t.requestFocus();
 			t.paste();
@@ -122,7 +122,7 @@ public class TopMenu {
 	private static JMenuItem deleteAll(JTextComponent t) {
 		JMenuItem item;
 		item = new JMenuItem("delete all");
-		item.setAccelerator(HotKey.delete_all);
+		item.setAccelerator(HotKey.delete_all.getKeyStroke());
 		item.addActionListener(e -> {
 			t.setText("");
 		});
