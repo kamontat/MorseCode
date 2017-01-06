@@ -1,6 +1,6 @@
 package com.kamontat.code.constant;
 
-import com.kamontat.code.controller.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import java.awt.event.InputEvent;
