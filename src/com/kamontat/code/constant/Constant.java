@@ -6,6 +6,6 @@ package com.kamontat.code.constant;
  * @since 1/6/2017 AD - 11:54 PM
  */
 public class Constant {
-	public static final String version = "v1.0-rc1";
+	public static final String version = "v1.1";
 	
 }
