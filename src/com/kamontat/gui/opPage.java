@@ -15,13 +15,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 
+import static com.kamontat.gui.KeyTablePage.addKeyTo;
+
 /**
  * @author kamontat
  * @version 1.0
  * @since 1/2/2017 AD - 7:08 PM
  */
 public class opPage extends JFrame {
-	private JPanel ContentPane;
+	private JPanel contentPane;
 	private JComboBox L_ComboBox;
 	private JComboBox S_ComboBox;
 	private JComboBox SW_ComboBox;
@@ -44,13 +46,15 @@ public class opPage extends JFrame {
 	
 	public opPage(PageType type) {
 		super(type == PageType.Decode ? "Decode Page": "Encode Page");
-		setContentPane(ContentPane);
+		setContentPane(contentPane);
 		
 		t = type;
 		addLb();
 		addComboboxItem();
 		addBtnEvent();
 		addMenu();
+		
+		addKeyTo(this, contentPane);
 		
 		textArea.setLineWrap(true);
 		

@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import static com.kamontat.gui.KeyTablePage.addKeyTo;
+
 public class AboutPage extends JDialog {
 	private JPanel contentPane;
 	private JButton buttonOK;
@@ -56,6 +58,8 @@ public class AboutPage extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 		getRootPane().setDefaultButton(buttonOK);
+		
+		addKeyTo(this, contentPane);
 		
 		buttonOK.addActionListener(e -> onOK());
 		infoBtn.addActionListener(e -> setVisible(infoPanel));

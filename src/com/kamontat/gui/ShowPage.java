@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+import static com.kamontat.gui.KeyTablePage.addKeyTo;
+
 /**
  * @author kamontat
  * @version 1.0
@@ -25,6 +27,7 @@ public class ShowPage extends JDialog {
 		
 		addBtnEvent();
 		addShortKey();
+		addKeyTo(this, contentPane);
 	}
 	
 	private void addText(String m, String n) {

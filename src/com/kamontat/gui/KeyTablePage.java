@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
@@ -26,6 +27,21 @@ public class KeyTablePage extends JDialog {
 		addActionListener();
 		
 		buttonOK.addActionListener(e -> onOK());
+	}
+	
+	public static void addKeyTo(Window w, JPanel p) {
+		Action key = KeyTablePage.getAction(w.getLocation());
+		p.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.KEY.getKeyStroke(), "key");
+		p.getActionMap().put("key", key);
+	}
+	
+	private static Action getAction(Point p) {
+		return new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new KeyTablePage().run(p);
+			}
+		};
 	}
 	
 	private TableModel addTableModel() {

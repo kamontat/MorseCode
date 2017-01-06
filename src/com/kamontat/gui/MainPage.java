@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+import static com.kamontat.gui.KeyTablePage.addKeyTo;
+
 /**
  * @author kamontat
  * @version 1.0
@@ -17,23 +19,24 @@ import java.awt.event.ActionEvent;
 public class MainPage extends JFrame {
 	private JButton decodeBtn;
 	private JButton encodeBtn;
-	private JPanel ContentPane;
+	private JPanel contentPane;
 	
 	public MainPage() {
 		super("MainPage Page");
-		setContentPane(ContentPane);
+		setContentPane(contentPane);
 		addMenu();
 		
 		Action decodeAction = getAction(PageType.Decode);
-		Action encodeAction = getAction(PageType.Encode);
-		
 		decodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.DECODE.getKeyStroke(), "decodeAction"); // add key
 		decodeBtn.getActionMap().put("decodeAction", decodeAction); // add action (call with key press)
 		decodeBtn.addActionListener(decodeAction); // add action (call when press button)
 		
+		Action encodeAction = getAction(PageType.Encode);
 		encodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.ENCODE.getKeyStroke(), "encodeAction");
 		encodeBtn.getActionMap().put("encodeAction", encodeAction);
 		encodeBtn.addActionListener(encodeAction);
+		
+		addKeyTo(this, contentPane);
 		
 		pack();
 	}

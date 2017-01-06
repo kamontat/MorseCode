@@ -13,12 +13,24 @@ import java.awt.event.KeyEvent;
  */
 public enum HotKey {
 	ABOUT("About", "go to about page (contain Information of this program and How to use it)", "Every menu-bar", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.ALT_MASK)),
+	KEY("Key", "go to key table page", "Everywhere", "Everytime", KeyStroke.getKeyStroke(KeyEvent.VK_K, getCTRL_MASK())),
 	
-	ENCODE_A("Encode page with alt", "go to encode page", "Some menu-bar", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.ALT_MASK)), ENCODE("Encode page", "go to encode page", "Main page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_E, 0)), DECODE_A("Decode page with alt", "go to decode page", "Some menu-bar", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.ALT_MASK)), DECODE("Decode page", "go to decode page", "Main page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0)),
+	ENCODE_A("Encode page with alt", "go to encode page", "Some menu-bar", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.ALT_MASK)),
+	ENCODE("Encode page", "go to encode page", "Main page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_E, 0)),
+	DECODE_A("Decode page with alt", "go to decode page", "Some menu-bar", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.ALT_MASK)),
+	DECODE("Decode page", "go to decode page", "Main page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0)),
 	
-	MORSE("Morse Code", "to select all morse-code", "Show page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_M, getCTRL_MASK())), NORMAL("Normal Text", "to select all normal-text", "Show page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_N, getCTRL_MASK())),
+	MORSE("Morse Code", "to select all morse-code", "Show page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_M, getCTRL_MASK())),
+	NORMAL("Normal Text", "to select all normal-text", "Show page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_N, getCTRL_MASK())),
 	
-	ENTER("Enter", "you can press enter to click", "Every page", "Focus button", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)), OK("OK", "to decode/encode", "Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, getCTRL_MASK())), BACK("Back", "back to previous page ", "Operation page/Show page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_B, getCTRL_MASK())), DELETE("Delete", "delete 1 character", "Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0)), CUT("Cut", "cut text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_X, getCTRL_MASK())), COPY("Copy", "copy text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_C, getCTRL_MASK())), PASTE("Paste", "paste text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_V, getCTRL_MASK())), DELETE_ALL("Delete All", "delete all text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, getCTRL_MASK()));
+	ENTER("Enter", "you can press enter to click", "Every page", "Focus button", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)),
+	OK("OK", "to decode/encode", "Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, getCTRL_MASK())),
+	BACK("Back", "back to previous page ", "Operation page/Show page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_B, getCTRL_MASK())),
+	DELETE("Delete", "delete 1 character", "Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0)),
+	CUT("Cut", "cut text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_X, getCTRL_MASK())),
+	COPY("Copy", "copy text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_C, getCTRL_MASK())),
+	PASTE("Paste", "paste text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_V, getCTRL_MASK())),
+	DELETE_ALL("Delete All", "delete all text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, getCTRL_MASK()));
 	
 	private String name;
 	private String description, position, when;
@@ -57,7 +69,7 @@ public enum HotKey {
 	}
 	
 	public String[] getAll() {
-		return new String[]{name, description, position, when, getKeyString()};
+		return new String[] {name, description, position, when, getKeyString()};
 	}
 	
 	private static int getCTRL_MASK() {

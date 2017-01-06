@@ -51,6 +51,7 @@
           <component id="419a1" class="javax.swing.JTable" binding="table">
             <constraints/>
             <properties>
+              <font size="13"/>
               <rowSelectionAllowed value="false"/>
             </properties>
           </component>
