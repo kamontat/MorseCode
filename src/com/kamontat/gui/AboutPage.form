@@ -172,7 +172,7 @@
                               <editable value="false"/>
                               <enabled value="true"/>
                               <preferredSize width="300" height="128"/>
-                              <text value="1) This program develop by MIT license so you can add modify or do everything you want.&#10;2) This program will change you text to morse-code or otherwise BUT we need to know which character you use in your text So first you may have to change character by using combobox.&#10;3) Most of the button it's have shortcut key, if you want to know click button below"/>
+                              <text value="1) This program develop by MIT license so you can add modify or do everything you want.&#10;2) This program will change you text to morse-code or otherwise BUT we need to know which character you use in your text So first you may have to change character by using combobox.&#10;3) Most of the button it's have shortcut key, if you want to know key map click below"/>
                             </properties>
                           </component>
                         </children>
