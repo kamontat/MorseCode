@@ -13,13 +13,18 @@ public class ShowPage extends JDialog {
 	private JTextPane morseTP;
 	private JButton backBtn;
 	private JPanel contentPane;
+	private JButton copyMBtn;
+	private JButton copyNBtn;
+	private JButton selectAllMBtn;
+	private JButton selectAllNBtn;
 	
 	public ShowPage(Frame f, String morse, String normal) {
 		super(f);
 		setModal(true);
 		setContentPane(contentPane);
-		addBtnEvent();
 		addText(morse, normal);
+		
+		addBtnEvent();
 	}
 	
 	private void addText(String m, String n) {
@@ -30,6 +35,26 @@ public class ShowPage extends JDialog {
 	
 	private void addBtnEvent() {
 		backBtn.addActionListener(e -> dispose());
+		
+		copyMBtn.addActionListener(e -> {
+			morseTP.requestFocus();
+			morseTP.selectAll();
+			morseTP.copy();
+		});
+		selectAllMBtn.addActionListener(e -> {
+			morseTP.requestFocus();
+			morseTP.selectAll();
+		});
+		
+		copyNBtn.addActionListener(e -> {
+			normalTP.requestFocus();
+			normalTP.selectAll();
+			normalTP.copy();
+		});
+		selectAllNBtn.addActionListener(e -> {
+			normalTP.requestFocus();
+			normalTP.selectAll();
+		});
 	}
 	
 	public void run(Point point, Dimension d) {

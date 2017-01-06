@@ -1,5 +1,6 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.constant.HotKey;
 import com.kamontat.code.constant.MORSE_CHAR;
 import com.kamontat.code.constant.MORSE_TYPE;
 import com.kamontat.code.constant.PageType;
@@ -11,6 +12,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 
 /**
@@ -24,7 +26,7 @@ public class opPage extends JFrame {
 	private JComboBox S_ComboBox;
 	private JComboBox SW_ComboBox;
 	private JComboBox SC_ComboBox;
-	private JTextField textField;
+	private JTextArea textArea;
 	private JButton okBtn;
 	private JButton moreBtn;
 	private JButton sBtn;
@@ -49,6 +51,8 @@ public class opPage extends JFrame {
 		addComboboxItem();
 		addBtnEvent();
 		addMenu();
+		
+		textArea.setLineWrap(true);
 		
 		if (t == PageType.Decode) {
 			addTextFieldDoc();
@@ -91,7 +95,7 @@ public class opPage extends JFrame {
 				SC_ComboBox.setSelectedIndex(SC_ComboBox.getSelectedIndex() + 1 == SC_ComboBox.getItemCount() ? 0: SC_ComboBox.getSelectedIndex() + 1);
 			
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		SC_ComboBox.addItemListener(e -> {
@@ -100,17 +104,17 @@ public class opPage extends JFrame {
 				SW_ComboBox.setSelectedIndex(SW_ComboBox.getSelectedIndex() + 1 == SW_ComboBox.getItemCount() ? 0: SW_ComboBox.getSelectedIndex() + 1);
 			
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		L_ComboBox.addItemListener(e -> {
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		S_ComboBox.addItemListener(e -> {
 			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
-				setTextField(morse.convert(textField.getText(), (MORSE_CHAR) e.getItem()));
+				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 	}
@@ -120,7 +124,7 @@ public class opPage extends JFrame {
 	}
 	
 	private void addTextFieldDoc() {
-		textField.getDocument().addDocumentListener(new DocumentListener() {
+		textArea.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				inputAction();
@@ -139,30 +143,51 @@ public class opPage extends JFrame {
 	}
 	
 	private void addBtnEvent() {
-		deleteBtn.addActionListener(e -> {
-			try {
-				textField.setText(textField.getText(0, textField.getText().length() - 1));
-			} catch (BadLocationException ignored) {
+		Action okAction = new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				OKEvent();
 			}
-		});
+		};
+		Action deleteAction = new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteText(1);
+			}
+		};
 		
+		okBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.ok, "okAction");
+		okBtn.getActionMap().put("okAction", okAction);
 		okBtn.addActionListener(e -> OKEvent());
+		
+		deleteBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.delete, "deleteAction");
+		deleteBtn.getActionMap().put("deleteAction", deleteAction);
+		deleteBtn.addActionListener(e -> deleteText(1));
 	}
 	
 	private void addBtnMoreEvent() {
-		sBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SHORT_CHAR).chr));
-		lBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.LONG_CHAR).chr));
-		ncBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SEPARATE_CHAR).chr));
-		nwBtn.addActionListener(e -> textField.setText(textField.getText() + getChar(MORSE_TYPE.SEPARATE_WORD).chr));
+		sBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.SHORT_CHAR).chr));
+		lBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.LONG_CHAR).chr));
+		ncBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.SEPARATE_CHAR).chr));
+		nwBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.SEPARATE_WORD).chr));
 	}
 	
 	private void OKEvent() {
-		String m, n;
-		Morse.set(getChar(MORSE_TYPE.SEPARATE_WORD), getChar(MORSE_TYPE.SEPARATE_CHAR), getChar(MORSE_TYPE.SHORT_CHAR), getChar(MORSE_TYPE.LONG_CHAR));
-		String txt = (t == PageType.Decode ? morse.decode(textField.getText()): morse.encode(textField.getText()));
-		m = (t == PageType.Decode ? textField.getText(): txt);
-		n = (t == PageType.Decode ? txt: textField.getText());
-		new ShowPage(this, m, n).run(new Point(this.getLocation().x + this.getWidth(), this.getLocation().y), getSize());
+		if (okBtn.isEnabled()) {
+			String m, n;
+			Morse.set(getChar(MORSE_TYPE.SEPARATE_WORD), getChar(MORSE_TYPE.SEPARATE_CHAR), getChar(MORSE_TYPE.SHORT_CHAR), getChar(MORSE_TYPE.LONG_CHAR));
+			String txt = (t == PageType.Decode ? morse.decode(textArea.getText()): morse.encode(textArea.getText()));
+			m = (t == PageType.Decode ? textArea.getText(): txt);
+			n = (t == PageType.Decode ? txt: textArea.getText());
+			new ShowPage(this, m, n).run(new Point(this.getLocation().x + this.getWidth(), this.getLocation().y), getSize());
+		}
+	}
+	
+	private void deleteText(int chr) {
+		try {
+			textArea.setText(textArea.getText(0, textArea.getText().length() - chr));
+		} catch (BadLocationException ignored) {
+		}
 	}
 	
 	private JComboBox getBox(MORSE_TYPE t) {
@@ -179,8 +204,8 @@ public class opPage extends JFrame {
 		return null;
 	}
 	
-	private void setTextField(String text) {
-		textField.setText(text);
+	private void setText(String text) {
+		textArea.setText(text);
 		inputAction();
 	}
 	
@@ -189,7 +214,7 @@ public class opPage extends JFrame {
 		morePanel.setVisible(!toggle);
 		selectedPanel.setVisible(toggle);
 		
-		textField.setEnabled(toggle);
+		textArea.setEnabled(toggle);
 		
 		moreBtn.setText(toggle ? "more..": "..less");
 		
@@ -198,14 +223,14 @@ public class opPage extends JFrame {
 	}
 	
 	private void inputAction() {
-		SW_ComboBox.setEnabled(textField.getText().isEmpty());
-		SC_ComboBox.setEnabled(textField.getText().isEmpty());
+		SW_ComboBox.setEnabled(textArea.getText().isEmpty());
+		SC_ComboBox.setEnabled(textArea.getText().isEmpty());
 		
-		if (checkValid(textField.getText())) {
-			textField.setBackground(new Color(255, 255, 255));
+		if (checkValid(textArea.getText())) {
+			textArea.setBackground(new Color(255, 255, 255));
 			okBtn.setEnabled(true);
 		} else {
-			textField.setBackground(new Color(255, 0, 0));
+			textArea.setBackground(new Color(255, 0, 0));
 			okBtn.setEnabled(false);
 		}
 	}
