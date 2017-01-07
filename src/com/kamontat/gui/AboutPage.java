@@ -98,7 +98,23 @@ public class AboutPage extends JDialog {
 	}
 	
 	private void setVisible(JComponent c) {
-		c.setVisible(!c.isVisible());
+		boolean isVisible = c.isVisible();
+		c.setVisible(!isVisible);
+		
+		JComponent[][] allPanel = new JComponent[][]{{infoPanel}, {helpPanel, ntkPanel, mnPanel, nmPanel}};
+		
+		if (c.equals(allPanel[0][0])) for (JComponent panel : allPanel[1]) {
+			panel.setVisible(false);
+		}
+		else {
+			if (!c.equals(allPanel[1][0])) {
+				for (int i = 1; i < allPanel[1].length; i++) {
+					if (!c.equals(allPanel[1][i])) allPanel[1][i].setVisible(false);
+				}
+			}
+			allPanel[0][0].setVisible(false);
+		}
+		
 		pack();
 	}
 	
