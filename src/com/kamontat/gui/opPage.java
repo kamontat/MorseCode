@@ -40,6 +40,7 @@ public class opPage extends JFrame {
 	private JButton deleteBtn;
 	private JLabel desLb;
 	private JLabel titleLb;
+	private JButton settingBtn;
 	
 	private PageType t;
 	private final Morse morse = Morse.getInstance();
@@ -124,10 +125,6 @@ public class opPage extends JFrame {
 		});
 	}
 	
-	private void addMoreEvent() {
-		moreBtn.addActionListener(e -> toggle());
-	}
-	
 	private void addTextFieldDoc() {
 		textArea.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
@@ -161,20 +158,71 @@ public class opPage extends JFrame {
 			}
 		};
 		
+		Action settingAction = new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				toggle(false);
+			}
+		};
+		
 		okBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.OK.getKeyStroke(), "okAction");
 		okBtn.getActionMap().put("okAction", okAction);
-		okBtn.addActionListener(e -> OKEvent());
+		okBtn.addActionListener(okAction);
 		
 		deleteBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.DELETE.getKeyStroke(), "deleteAction");
 		deleteBtn.getActionMap().put("deleteAction", deleteAction);
-		deleteBtn.addActionListener(e -> deleteText(1));
+		deleteBtn.addActionListener(deleteAction);
+		
+		settingBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.SETTING.getKeyStroke(), "settingAction");
+		settingBtn.getActionMap().put("settingAction", settingAction);
+		settingBtn.addActionListener(settingAction);
+	}
+	
+	private void addMoreEvent() {
+		Action moreAction = new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				toggle(true);
+			}
+		};
+		moreBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.MORE.getKeyStroke(), "moreAction");
+		moreBtn.getActionMap().put("moreAction", moreAction);
+		moreBtn.addActionListener(moreAction);
 	}
 	
 	private void addBtnMoreEvent() {
-		sBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.SHORT_CHAR).chr));
-		lBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.LONG_CHAR).chr));
-		ncBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.SEPARATE_CHAR).chr));
-		nwBtn.addActionListener(e -> textArea.setText(textArea.getText() + getChar(MORSE_TYPE.SEPARATE_WORD).chr));
+		Action s = getAction(MORSE_TYPE.SHORT_CHAR);
+		sBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.SHORT.getKeyStroke(), "s");
+		sBtn.getActionMap().put("s", s);
+		sBtn.addActionListener(s);
+		
+		Action l = getAction(MORSE_TYPE.LONG_CHAR);
+		lBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.LONG.getKeyStroke(), "l");
+		lBtn.getActionMap().put("l", l);
+		lBtn.addActionListener(l);
+		
+		Action sw = getAction(MORSE_TYPE.SEPARATE_WORD);
+		nwBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.S_CHAR.getKeyStroke(), "sw");
+		nwBtn.getActionMap().put("sw", sw);
+		nwBtn.addActionListener(sw);
+		
+		Action sc = getAction(MORSE_TYPE.SEPARATE_CHAR);
+		ncBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.S_WORD.getKeyStroke(), "sc");
+		ncBtn.getActionMap().put("sc", sc);
+		ncBtn.addActionListener(sc);
+	}
+	
+	private void setText(MORSE_TYPE t) {
+		textArea.setText(textArea.getText() + getChar(t).chr);
+	}
+	
+	private Action getAction(MORSE_TYPE t) {
+		return new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setText(t);
+			}
+		};
 	}
 	
 	private void OKEvent() {
@@ -214,17 +262,27 @@ public class opPage extends JFrame {
 		inputAction();
 	}
 	
-	private void toggle() {
-		boolean toggle = morePanel.isVisible();
-		morePanel.setVisible(!toggle);
-		selectedPanel.setVisible(toggle);
+	private void toggle(boolean isMore) {
 		
-		textArea.setEnabled(toggle);
-		
-		moreBtn.setText(toggle ? "more..": "..less");
-		
+		if (!isMore) {
+			showSelectedPanel(!selectedPanel.isVisible());
+			showMorePanel(false);
+		} else {
+			showSelectedPanel(false);
+			showMorePanel(!morePanel.isVisible());
+		}
 		pack();
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
+	}
+	
+	private void showSelectedPanel(boolean a) {
+		selectedPanel.setVisible(a);
+	}
+	
+	private void showMorePanel(boolean a) {
+		morePanel.setVisible(a);
+		textArea.setEnabled(!a);
+		moreBtn.setText(!a ? "more..": "..less");
 	}
 	
 	private void inputAction() {

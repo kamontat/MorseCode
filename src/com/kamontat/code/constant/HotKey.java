@@ -26,10 +26,19 @@ public enum HotKey {
 	ENTER("Enter", "you can press enter to click", "Every page", "Focus button", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)),
 	OK("OK", "to decode/encode", "Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, getCTRL_MASK())),
 	BACK("Back", "back to previous page ", "Operation page/Show page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_B, getCTRL_MASK())),
-	DELETE("Delete", "delete 1 character", "Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0)),
+	
+	MORE("More", "open enter morse-code by 2 button", "Decode Page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.ALT_MASK)),
+	SETTING("Setting", "open setting character", "Operation Page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK)),
+	
+	SHORT("Short", "insert short character", "Decode page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_Z, 0)),
+	LONG("Long", "insert long character", "Decode page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_X, 0)),
+	S_WORD("Separate Word", "insert separate word", "Decode page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)),
+	S_CHAR("Separate Character", "insert separate character", "Decode page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0)),
+	
 	CUT("Cut", "cut text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_X, getCTRL_MASK())),
 	COPY("Copy", "copy text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_C, getCTRL_MASK())),
 	PASTE("Paste", "paste text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_V, getCTRL_MASK())),
+	DELETE("Delete", "delete 1 character", "Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0)),
 	DELETE_ALL("Delete All", "delete all text", "textField in Operation page", "Focus page", KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, getCTRL_MASK()));
 	
 	private String name;
