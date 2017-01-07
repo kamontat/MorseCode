@@ -18,6 +18,7 @@ Release Candidate (vx.x-rcx)
 - Version 1
   - v1.1 <- add **key table page**, fixed a ton of bug, add more shortcut 
     - v1.1.1 <- hide some panel that no currently use and fixed parentheses bug
+    - v1.1.2 <- add more **morse code**
   
 - Version 2
   -
