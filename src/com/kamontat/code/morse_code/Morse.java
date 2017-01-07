@@ -2,6 +2,7 @@ package com.kamontat.code.morse_code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamontat.code.constant.MORSE_CHAR;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.stream.Location;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class Morse {
 	}
 	
 	public String decode(String morse_txt) {
-		double parentheses = 0;
+		int parentheses = 0;
 		morse_txt = convert(convert(morse_txt, MORSE_CHAR.S_DEFAULT), MORSE_CHAR.L_DEFAULT);
 		String txt = "";
 		String words[] = morse_txt.split(Pattern.quote(String.valueOf(SEPARATE_WORD.chr)));
@@ -68,9 +69,9 @@ public class Morse {
 			txt += " ";
 		}
 		txt = txt.substring(0, txt.length() - 1);
-		if (parentheses % 2 == 0) {
-			// parentheses issue
-		}
+		txt = StringUtils.replace(StringUtils.reverse(txt), "(", ")", parentheses / 2);
+		txt = StringUtils.reverse(txt);
+		
 		return txt;
 	}
 	
