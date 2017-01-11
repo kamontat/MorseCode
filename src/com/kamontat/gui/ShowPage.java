@@ -57,13 +57,13 @@ public class ShowPage extends JDialog {
 		String text = "";
 		if (Morse.getOpError() == OperationType.Decode) {
 			text = "Morse Code: ";
-			for (Integer in : Morse.getError()) {
-				if (!text.contains(Character.toString(m.charAt(in)))) text += "\"" + m.charAt(in) + "\", ";
+			for (String txt : Morse.getError()) {
+				text += "\"" + txt + "\", ";
 			}
 		} else if (Morse.getOpError() == OperationType.Encode) {
 			text = "Normal Text: ";
-			for (Integer in : Morse.getError()) {
-				if (!text.contains(Character.toString(n.charAt(in)))) text += "\"" + n.charAt(in) + "\", ";
+			for (String txt : Morse.getError()) {
+				if (!text.contains(txt)) text += "\"" + txt + "\", ";
 			}
 		} else {
 			return null;

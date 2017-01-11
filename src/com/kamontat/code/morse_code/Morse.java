@@ -24,7 +24,7 @@ public class Morse {
 	private static TreeMap<String, LinkedHashMap<String, String>> morse_char = new TreeMap<>();
 	private static TreeMap<String, String> normal_char = new TreeMap<>();
 	
-	private static ArrayList<Integer> errorHistory = new ArrayList<>();
+	private static ArrayList<String> errorHistory = new ArrayList<>();
 	private static OperationType opError;
 	
 	private static Morse ourInstance;
@@ -58,8 +58,8 @@ public class Morse {
 		LONG_CHAR = longC;
 	}
 	
-	public static ArrayList<Integer> getError() {
-		ArrayList<Integer> temp = new ArrayList<>(errorHistory);
+	public static ArrayList<String> getError() {
+		ArrayList<String> temp = new ArrayList<>(errorHistory);
 		Morse.getInstance().clearError();
 		return temp;
 	}
@@ -69,6 +69,7 @@ public class Morse {
 	}
 	
 	private void clearError() {
+		opError = null;
 		errorHistory.removeAll(errorHistory);
 	}
 	
@@ -83,7 +84,7 @@ public class Morse {
 			String chars[] = w.split(Pattern.quote(String.valueOf(SEPARATE_CHAR.chr)));
 			for (String c : chars) {
 				String cc = normal_char.get(c);
-				if (cc == null) errorHistory.add(index);
+				if (cc == null) errorHistory.add(c);
 				else if (cc.equals("(")) parentheses++;
 				else txt += cc;
 				
@@ -115,7 +116,7 @@ public class Morse {
 				} else {
 					temp = morse_char.get("M").get(String.valueOf(c));
 				}
-				if (temp == null) errorHistory.add(index);
+				if (temp == null) errorHistory.add(String.valueOf(c));
 				else de += temp;
 				
 				if (i < w.length() - 1) de += SEPARATE_CHAR.chr;
