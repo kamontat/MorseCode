@@ -173,7 +173,7 @@
                               <editable value="false"/>
                               <enabled value="true"/>
                               <preferredSize width="300" height="128"/>
-                              <text value="1) This program develop by MIT license so you can add modify or do everything you want.&#10;2) This program will change you text to morse-code or otherwise BUT we need to know which character you use in your text So first you may have to change character by using combobox.&#10;3) Most of the button it's have shortcut key, if you want to know key map click below"/>
+                              <text value="1) This program develop by MIT license so you can add modify or do everything you want.&#10;2) This program will change you text to morse-code or otherwise BUT we need to know which character you use in your text So first you may have to change character by using combobox.&#10;3) Most of the button it's have shortcut key, if you want to know key map click below&#10;4) 'Null Error' is when you enter some character that Cannot convert it must turn to null if you open null error it's will notice you which character that cannot convert (Null Error is Open by Default)"/>
                             </properties>
                           </component>
                         </children>
