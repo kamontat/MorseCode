@@ -57,6 +57,7 @@ public class AboutPage extends JDialog {
 	}
 	
 	public AboutPage() {
+		super((Frame) null, "About Page");
 		setContentPane(contentPane);
 		setModal(true);
 		getRootPane().setDefaultButton(buttonOK);

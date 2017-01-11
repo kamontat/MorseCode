@@ -17,6 +17,7 @@ public class KeyTablePage extends JDialog {
 	private JTable table;
 	
 	public KeyTablePage() {
+		super((Frame) null, "Key Table Page");
 		setContentPane(contentPane);
 		setModal(true);
 		getRootPane().setDefaultButton(buttonOK);

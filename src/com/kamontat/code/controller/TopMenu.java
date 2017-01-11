@@ -59,29 +59,19 @@ public class TopMenu {
 		JMenu menu;
 		
 		menu = new JMenu("Setting");
-		addRadio(menu);
+		addCheckbox(menu);
 		menu.addSeparator();
 		menu.add(about(curF));
 		
 		return menu;
 	}
 	
-	private static void addRadio(JMenu menu) {
-		ButtonGroup group = new ButtonGroup();
-		JRadioButtonMenuItem jb1 = new JRadioButtonMenuItem("Ignore 'null' error");
-		jb1.addItemListener(e -> {
-			Constant.haveNullError = false;
+	private static void addCheckbox(JMenu menu) {
+		JCheckBoxMenuItem jc = new JCheckBoxMenuItem("'Null Error Message'");
+		jc.addActionListener(e -> {
+			Constant.haveNullError = jc.getState();
 		});
-		group.add(jb1);
-		menu.add(jb1);
-		
-		JRadioButtonMenuItem jb2 = new JRadioButtonMenuItem("Have 'null' error");
-		jb2.addItemListener(e -> {
-			Constant.haveNullError = true;
-		});
-		jb2.setSelected(true);
-		group.add(jb2);
-		menu.add(jb2);
+		menu.add(jc);
 	}
 	
 	private static JMenuItem about(JFrame curF) {

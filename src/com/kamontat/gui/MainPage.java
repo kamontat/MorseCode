@@ -22,7 +22,7 @@ public class MainPage extends JFrame {
 	private JPanel contentPane;
 	
 	public MainPage() {
-		super("MainPage Page");
+		super("Main Page");
 		setContentPane(contentPane);
 		addMenu();
 		
