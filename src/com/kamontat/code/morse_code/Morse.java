@@ -1,6 +1,7 @@
 package com.kamontat.code.morse_code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kamontat.code.constant.Constant;
 import com.kamontat.code.constant.MORSE_CHAR;
 import com.kamontat.code.constant.OperationType;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +25,6 @@ public class Morse {
 	private static TreeMap<String, LinkedHashMap<String, String>> morse_char = new TreeMap<>();
 	private static TreeMap<String, String> normal_char = new TreeMap<>();
 	
-	public static boolean errorOccur = true;
 	private static ArrayList<String> errorHistory = new ArrayList<>();
 	private static OperationType opError;
 	
@@ -66,7 +66,7 @@ public class Morse {
 	}
 	
 	public static OperationType getOpError() {
-		return errorOccur ? opError: null;
+		return Constant.haveNullError ? opError: null;
 	}
 	
 	private void clearError() {
