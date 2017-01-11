@@ -2,6 +2,7 @@ package com.kamontat.code.morse_code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamontat.code.constant.MORSE_CHAR;
+import com.kamontat.code.constant.OperationType;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.stream.Location;
@@ -22,6 +23,9 @@ public class Morse {
 	private static MORSE_CHAR LONG_CHAR = MORSE_CHAR.L_DEFAULT;
 	private static TreeMap<String, LinkedHashMap<String, String>> morse_char = new TreeMap<>();
 	private static TreeMap<String, String> normal_char = new TreeMap<>();
+	
+	private static ArrayList<Integer> errorHistory = new ArrayList<>();
+	private static OperationType opError;
 	
 	private static Morse ourInstance;
 	
@@ -54,8 +58,24 @@ public class Morse {
 		LONG_CHAR = longC;
 	}
 	
+	public static ArrayList<Integer> getError() {
+		ArrayList<Integer> temp = new ArrayList<>(errorHistory);
+		Morse.getInstance().clearError();
+		return temp;
+	}
+	
+	public static OperationType getOpError() {
+		return opError;
+	}
+	
+	private void clearError() {
+		errorHistory.removeAll(errorHistory);
+	}
+	
 	public String decode(String morse_txt) {
-		int parentheses = 0;
+		clearError();
+		
+		int index = 0, parentheses = 0;
 		morse_txt = convert(convert(morse_txt, MORSE_CHAR.S_DEFAULT), MORSE_CHAR.L_DEFAULT);
 		String txt = "";
 		String words[] = morse_txt.split(Pattern.quote(String.valueOf(SEPARATE_WORD.chr)));
@@ -63,35 +83,47 @@ public class Morse {
 			String chars[] = w.split(Pattern.quote(String.valueOf(SEPARATE_CHAR.chr)));
 			for (String c : chars) {
 				String cc = normal_char.get(c);
-				if (cc != null && cc.equals("(")) parentheses++;
-				txt += cc;
+				if (cc == null) errorHistory.add(index);
+				else if (cc.equals("(")) parentheses++;
+				else txt += cc;
+				
+				index++;
 			}
 			txt += " ";
 		}
 		txt = txt.substring(0, txt.length() - 1);
 		txt = StringUtils.replace(StringUtils.reverse(txt), "(", ")", parentheses / 2);
 		txt = StringUtils.reverse(txt);
-		
+		if (errorHistory.size() != 0) opError = OperationType.Decode;
 		return txt;
 	}
 	
 	public String encode(String txt) {
+		clearError();
+		
 		String de = "";
+		int index = 0;
 		
 		for (String w : txt.split(" ")) {
 			for (int i = 0; i < w.length(); i++) {
 				Character c = w.toUpperCase().charAt(i);
+				String temp = "";
 				if (Character.isDigit(c)) {
-					de += morse_char.get("D").get(String.valueOf(c));
+					temp = morse_char.get("D").get(String.valueOf(c));
 				} else if (Character.isLetter(c)) {
-					de += morse_char.get("L").get(String.valueOf(c));
+					temp = morse_char.get("L").get(String.valueOf(c));
 				} else {
-					de += morse_char.get("M").get(String.valueOf(c));
+					temp = morse_char.get("M").get(String.valueOf(c));
 				}
+				if (temp == null) errorHistory.add(index);
+				else de += temp;
+				
 				if (i < w.length() - 1) de += SEPARATE_CHAR.chr;
+				index++;
 			}
 			de += SEPARATE_WORD.chr;
 		}
+		if (errorHistory.size() != 0) opError = OperationType.Encode;
 		return convert(convert(de.substring(0, de.length() - 1), SHORT_CHAR), LONG_CHAR);
 	}
 	

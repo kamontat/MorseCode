@@ -1,6 +1,8 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.constant.HotKey;
+import com.kamontat.code.constant.OperationType;
+import com.kamontat.code.morse_code.Morse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,12 @@ public class ShowPage extends JDialog {
 	private JButton backBtn;
 	private JPanel contentPane;
 	
+	private boolean isError = false;
+	
+	enum TextType {
+		MORSE, NORMAL;
+	}
+	
 	public ShowPage(Frame f, String morse, String normal) {
 		super(f);
 		setModal(true);
@@ -31,9 +39,36 @@ public class ShowPage extends JDialog {
 	}
 	
 	private void addText(String m, String n) {
+		checkText(m, n);
 		morseTP.setText(m);
 		morseTP.setPreferredSize(new Dimension(getWidth() / 2, getHeight() / 2));
 		normalTP.setText(n);
+	}
+	
+	private void checkText(String m, String n) {
+		String output = getErrorChar(m, n);
+		if (output != null) {
+			JOptionPane.showMessageDialog(null, "Character CANNOT Convert\n" + output, "Error", JOptionPane.ERROR_MESSAGE);
+			isError = true;
+		}
+	}
+	
+	private String getErrorChar(String m, String n) {
+		String text = "";
+		if (Morse.getOpError() == OperationType.Decode) {
+			text = "Morse Code: ";
+			for (Integer in : Morse.getError()) {
+				if (!text.contains(Character.toString(m.charAt(in)))) text += "\"" + m.charAt(in) + "\", ";
+			}
+		} else if (Morse.getOpError() == OperationType.Encode) {
+			text = "Normal Text: ";
+			for (Integer in : Morse.getError()) {
+				if (!text.contains(Character.toString(n.charAt(in)))) text += "\"" + n.charAt(in) + "\", ";
+			}
+		} else {
+			return null;
+		}
+		return text;
 	}
 	
 	private void addBtnEvent() {
@@ -86,6 +121,11 @@ public class ShowPage extends JDialog {
 	}
 	
 	public void run(Point point, Dimension d) {
+		if (isError) {
+			dispose();
+			return;
+		}
+		
 		pack();
 		setMinimumSize(new Dimension(getWidth(), d.height));
 		setSize(d);

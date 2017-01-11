@@ -2,7 +2,7 @@ package com.kamontat.code.controller;
 
 import com.kamontat.code.constant.Constant;
 import com.kamontat.code.constant.HotKey;
-import com.kamontat.code.constant.PageType;
+import com.kamontat.code.constant.OperationType;
 import com.kamontat.gui.AboutPage;
 import com.kamontat.gui.MainPage;
 import com.kamontat.gui.opPage;
@@ -35,7 +35,7 @@ public class TopMenu {
 		item = new JMenuItem("Decode");
 		item.setAccelerator(HotKey.DECODE_A.getKeyStroke());
 		item.addActionListener(e -> {
-			new opPage(PageType.Decode).run(curF.getLocation(), curF.getSize());
+			new opPage(OperationType.Decode).run(curF.getLocation(), curF.getSize());
 			curF.dispose();
 		});
 		
@@ -48,7 +48,7 @@ public class TopMenu {
 		item = new JMenuItem("Encode");
 		item.setAccelerator(HotKey.ENCODE_A.getKeyStroke());
 		item.addActionListener(e -> {
-			new opPage(PageType.Encode).run(curF.getLocation(), curF.getSize());
+			new opPage(OperationType.Encode).run(curF.getLocation(), curF.getSize());
 			curF.dispose();
 		});
 		

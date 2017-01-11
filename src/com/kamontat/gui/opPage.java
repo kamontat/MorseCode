@@ -3,7 +3,7 @@ package com.kamontat.gui;
 import com.kamontat.code.constant.HotKey;
 import com.kamontat.code.constant.MORSE_CHAR;
 import com.kamontat.code.constant.MORSE_TYPE;
-import com.kamontat.code.constant.PageType;
+import com.kamontat.code.constant.OperationType;
 import com.kamontat.code.controller.TopMenu;
 import com.kamontat.code.morse_code.Morse;
 
@@ -42,11 +42,11 @@ public class opPage extends JFrame {
 	private JLabel titleLb;
 	private JButton settingBtn;
 	
-	private PageType t;
+	private OperationType t;
 	private final Morse morse = Morse.getInstance();
 	
-	public opPage(PageType type) {
-		super(type == PageType.Decode ? "Decode Page": "Encode Page");
+	public opPage(OperationType type) {
+		super(type == OperationType.Decode ? "Decode Page": "Encode Page");
 		setContentPane(contentPane);
 		
 		t = type;
@@ -59,7 +59,7 @@ public class opPage extends JFrame {
 		
 		textArea.setLineWrap(true);
 		
-		if (t == PageType.Decode) {
+		if (t == OperationType.Decode) {
 			addTextFieldDoc();
 			addMoreEvent();
 			addBtnMoreEvent();
@@ -70,8 +70,8 @@ public class opPage extends JFrame {
 	}
 	
 	private void addLb() {
-		titleLb.setText(t == PageType.Decode ? "De Morse Code": "En Morse Code");
-		desLb.setText(t == PageType.Decode ? "Change Morse-Code to Normal-Text": "Change Normal-Text to Morse-Code");
+		titleLb.setText(t == OperationType.Decode ? "De Morse Code": "En Morse Code");
+		desLb.setText(t == OperationType.Decode ? "Change Morse-Code to Normal-Text": "Change Normal-Text to Morse-Code");
 	}
 	
 	private void addMenu() {
@@ -79,7 +79,7 @@ public class opPage extends JFrame {
 		JMenu actions = new JMenu("Link");
 		
 		actions.add(TopMenu.back(this));
-		actions.add(t == PageType.Decode ? TopMenu.encodePage(this): TopMenu.decodePage(this));
+		actions.add(t == OperationType.Decode ? TopMenu.encodePage(this): TopMenu.decodePage(this));
 		
 		menu.add(actions);
 		menu.add(TopMenu.edit(textArea));
@@ -100,7 +100,7 @@ public class opPage extends JFrame {
 			if (chr.sameC(SW_ComboBox.getSelectedItem()))
 				SC_ComboBox.setSelectedIndex(SC_ComboBox.getSelectedIndex() + 1 == SC_ComboBox.getItemCount() ? 0: SC_ComboBox.getSelectedIndex() + 1);
 			
-			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
+			if (e.getStateChange() == ItemEvent.SELECTED && t == OperationType.Decode) {
 				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
@@ -109,17 +109,17 @@ public class opPage extends JFrame {
 			if (chr.sameC(SC_ComboBox.getSelectedItem()))
 				SW_ComboBox.setSelectedIndex(SW_ComboBox.getSelectedIndex() + 1 == SW_ComboBox.getItemCount() ? 0: SW_ComboBox.getSelectedIndex() + 1);
 			
-			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
+			if (e.getStateChange() == ItemEvent.SELECTED && t == OperationType.Decode) {
 				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		L_ComboBox.addItemListener(e -> {
-			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
+			if (e.getStateChange() == ItemEvent.SELECTED && t == OperationType.Decode) {
 				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
 		S_ComboBox.addItemListener(e -> {
-			if (e.getStateChange() == ItemEvent.SELECTED && t == PageType.Decode) {
+			if (e.getStateChange() == ItemEvent.SELECTED && t == OperationType.Decode) {
 				setText(morse.convert(textArea.getText(), (MORSE_CHAR) e.getItem()));
 			}
 		});
@@ -229,9 +229,9 @@ public class opPage extends JFrame {
 		if (okBtn.isEnabled()) {
 			String m, n;
 			Morse.set(getChar(MORSE_TYPE.SEPARATE_WORD), getChar(MORSE_TYPE.SEPARATE_CHAR), getChar(MORSE_TYPE.SHORT_CHAR), getChar(MORSE_TYPE.LONG_CHAR));
-			String txt = (t == PageType.Decode ? morse.decode(textArea.getText()): morse.encode(textArea.getText()));
-			m = (t == PageType.Decode ? textArea.getText(): txt);
-			n = (t == PageType.Decode ? txt: textArea.getText());
+			String txt = (t == OperationType.Decode ? morse.decode(textArea.getText()): morse.encode(textArea.getText()));
+			m = (t == OperationType.Decode ? textArea.getText(): txt);
+			n = (t == OperationType.Decode ? txt: textArea.getText());
 			new ShowPage(this, m, n).run(new Point(this.getLocation().x + this.getWidth(), this.getLocation().y), getSize());
 		}
 	}

@@ -1,7 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.constant.HotKey;
-import com.kamontat.code.constant.PageType;
+import com.kamontat.code.constant.OperationType;
 import com.kamontat.code.controller.Display;
 import com.kamontat.code.controller.TopMenu;
 
@@ -26,12 +26,12 @@ public class MainPage extends JFrame {
 		setContentPane(contentPane);
 		addMenu();
 		
-		Action decodeAction = getAction(PageType.Decode);
+		Action decodeAction = getAction(OperationType.Decode);
 		decodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.DECODE.getKeyStroke(), "decodeAction"); // add key
 		decodeBtn.getActionMap().put("decodeAction", decodeAction); // add action (call with key press)
 		decodeBtn.addActionListener(decodeAction); // add action (call when press button)
 		
-		Action encodeAction = getAction(PageType.Encode);
+		Action encodeAction = getAction(OperationType.Encode);
 		encodeBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.ENCODE.getKeyStroke(), "encodeAction");
 		encodeBtn.getActionMap().put("encodeAction", encodeAction);
 		encodeBtn.addActionListener(encodeAction);
@@ -41,7 +41,7 @@ public class MainPage extends JFrame {
 		pack();
 	}
 	
-	private Action getAction(PageType t) {
+	private Action getAction(OperationType t) {
 		return new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

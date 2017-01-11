@@ -5,6 +5,6 @@ package com.kamontat.code.constant;
  * @version 1.0
  * @since 1/3/2017 AD - 1:41 PM
  */
-public enum PageType {
+public enum OperationType {
 	Decode, Encode;
 }
