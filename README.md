@@ -45,5 +45,3 @@ Final Release (vx.x.x)
     - v1.1.1 <- hide some panel that no currently use and fixed parentheses bug
     - v1.1.2 <- add more **morse code**
   - v1.2 <- add `Null Error Message` see more in about page
-  
-- Version 2
