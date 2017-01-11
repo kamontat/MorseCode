@@ -88,7 +88,7 @@ public class ShowPage extends JDialog {
 		Action selectAllNAction = getSelectAllNAction();
 		normalTP.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(HotKey.NORMAL.getKeyStroke(), "selectAllNAction");
 		normalTP.getActionMap().put("selectAllNAction", selectAllNAction);
-		morseTP.setToolTipText("shortcut: " + HotKey.NORMAL.getKeyString());
+		normalTP.setToolTipText("shortcut: " + HotKey.NORMAL.getKeyString());
 	}
 	
 	private Action getBackAction() {

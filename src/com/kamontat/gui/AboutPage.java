@@ -73,7 +73,7 @@ public class AboutPage extends JDialog {
 		keyTableBtn.addActionListener(e -> new KeyTablePage().run(this.getLocation()));
 		historyBtn.addActionListener(e -> {
 			try {
-				Desktop.getDesktop().browse(new URL("https://github.com/kamontat/MorseCode/blob/master/README.md").toURI());
+				Desktop.getDesktop().browse(new URL("https://github.com/kamontat/MorseCode#versions").toURI());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
