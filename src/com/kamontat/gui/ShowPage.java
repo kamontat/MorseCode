@@ -48,7 +48,7 @@ public class ShowPage extends JDialog {
 	private void checkText(String m, String n) {
 		String output = getErrorChar(m, n);
 		if (output != null) {
-			JOptionPane.showMessageDialog(null, "Character CANNOT Convert\n" + output, "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Character CANNOT Convert\n" + output, "Null Error", JOptionPane.ERROR_MESSAGE);
 			isError = true;
 		}
 	}

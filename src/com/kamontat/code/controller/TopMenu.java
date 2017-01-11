@@ -3,6 +3,7 @@ package com.kamontat.code.controller;
 import com.kamontat.code.constant.Constant;
 import com.kamontat.code.constant.HotKey;
 import com.kamontat.code.constant.OperationType;
+import com.kamontat.code.morse_code.Morse;
 import com.kamontat.gui.AboutPage;
 import com.kamontat.gui.MainPage;
 import com.kamontat.gui.opPage;
@@ -59,9 +60,29 @@ public class TopMenu {
 		JMenu menu;
 		
 		menu = new JMenu("Setting");
+		addRadio(menu);
+		menu.addSeparator();
 		menu.add(about(curF));
 		
 		return menu;
+	}
+	
+	private static void addRadio(JMenu menu) {
+		ButtonGroup group = new ButtonGroup();
+		JRadioButtonMenuItem jb1 = new JRadioButtonMenuItem("Ignore 'null' error");
+		jb1.addItemListener(e -> {
+			Morse.errorOccur = false;
+		});
+		group.add(jb1);
+		menu.add(jb1);
+		
+		JRadioButtonMenuItem jb2 = new JRadioButtonMenuItem("Have 'null' error");
+		jb2.addItemListener(e -> {
+			Morse.errorOccur = true;
+		});
+		jb2.setSelected(true);
+		group.add(jb2);
+		menu.add(jb2);
 	}
 	
 	private static JMenuItem about(JFrame curF) {

@@ -24,6 +24,7 @@ public class Morse {
 	private static TreeMap<String, LinkedHashMap<String, String>> morse_char = new TreeMap<>();
 	private static TreeMap<String, String> normal_char = new TreeMap<>();
 	
+	public static boolean errorOccur = true;
 	private static ArrayList<String> errorHistory = new ArrayList<>();
 	private static OperationType opError;
 	
@@ -65,7 +66,7 @@ public class Morse {
 	}
 	
 	public static OperationType getOpError() {
-		return opError;
+		return errorOccur ? opError: null;
 	}
 	
 	private void clearError() {
@@ -86,7 +87,7 @@ public class Morse {
 				String cc = normal_char.get(c);
 				if (cc == null) errorHistory.add(c);
 				else if (cc.equals("(")) parentheses++;
-				else txt += cc;
+				txt += cc;
 				
 				index++;
 			}
@@ -117,7 +118,7 @@ public class Morse {
 					temp = morse_char.get("M").get(String.valueOf(c));
 				}
 				if (temp == null) errorHistory.add(String.valueOf(c));
-				else de += temp;
+				de += temp;
 				
 				if (i < w.length() - 1) de += SEPARATE_CHAR.chr;
 				index++;
