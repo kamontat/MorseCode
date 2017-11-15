@@ -1,12 +1,12 @@
 package com.kamontat.gui;
 
+import com.kamontat.ReleasePopup;
 import com.kamontat.code.controller.Display;
+import com.kamontat.factory.UpdaterFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.net.URL;
 
 import static com.kamontat.gui.KeyTablePage.addKeyTo;
@@ -31,6 +31,7 @@ public class AboutPage extends JDialog {
 	private JScrollPane mnPanel;
 	private JScrollPane nmPanel;
 	private JButton historyBtn;
+	private JButton checkUpdateBtn;
 	
 	private static AboutPage page;
 	
@@ -78,6 +79,10 @@ public class AboutPage extends JDialog {
 				e1.printStackTrace();
 			}
 		});
+		checkUpdateBtn.addActionListener(e -> {
+			ReleasePopup popup = new ReleasePopup(UpdaterFactory.getFactory());
+			popup.run();
+		});
 		
 		// call onCancel() when cross is clicked
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -89,6 +94,7 @@ public class AboutPage extends JDialog {
 		
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+		
 		
 	}
 	

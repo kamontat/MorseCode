@@ -49,7 +49,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="ea619" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="ea619" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -172,7 +172,7 @@
                             <properties>
                               <editable value="false"/>
                               <enabled value="true"/>
-                              <preferredSize width="300" height="128"/>
+                              <preferredSize width="300" height="208"/>
                               <text value="1) This program develop by MIT license so you can add modify or do everything you want.&#10;2) This program will change you text to morse-code or otherwise BUT we need to know which character you use in your text So first you may have to change character by using combobox.&#10;3) Most of the button it's have shortcut key, if you want to know key map click below&#10;4) 'Null Error' is when you enter some character that cannot convert, it must turn to 'null' &#10;if you open 'null error message' it's will notice you which character that cannot convert ('null error message' is Open by Default)"/>
                             </properties>
                           </component>
@@ -231,6 +231,14 @@
                   </component>
                 </children>
               </grid>
+              <component id="461a5" class="javax.swing.JButton" binding="checkUpdateBtn">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Check for Updates..."/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

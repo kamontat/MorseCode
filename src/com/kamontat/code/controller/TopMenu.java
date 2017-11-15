@@ -68,6 +68,8 @@ public class TopMenu {
 	
 	private static void addCheckbox(JMenu menu) {
 		JCheckBoxMenuItem jc = new JCheckBoxMenuItem("'Null Error Message'");
+		jc.setState(Constant.haveNullError);
+		
 		jc.addActionListener(e -> {
 			Constant.haveNullError = jc.getState();
 		});

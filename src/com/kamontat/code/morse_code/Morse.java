@@ -71,7 +71,7 @@ public class Morse {
 	
 	private void clearError() {
 		opError = null;
-		errorHistory.removeAll(errorHistory);
+		errorHistory.clear();
 	}
 	
 	public String decode(String morse_txt) {
